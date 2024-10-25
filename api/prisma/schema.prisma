@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Film {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  episode_id    Int        @map("episode_id")
+  opening_crawl String     @map("opening_crawl")
+  director     String
+  producer     String
+  release_date  DateTime   @map("release_date")
+  characters   People[]   @relation(fields: [characterIds], references: [id])
+  characterIds String[]   @db.ObjectId
+  planets      Planet[]   @relation(fields: [planetIds], references: [id])
+  planetIds    String[]   @db.ObjectId
+  starships    Starship[] @relation(fields: [starshipIds], references: [id])
+  starshipIds  String[]   @db.ObjectId
+  url          String     @unique
+}
+
+model People {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  height      String
+  mass        String
+  hair_color  String
+  skin_color  String
+  eye_color   String
+  birth_year  String
+  gender      String
+  homeworld   Planet     @relation(fields: [homeworldId], references: [id])
+  homeworldId String     @db.ObjectId
+  starships   Starship[] @relation(fields: [starshipIds], references: [id])
+  starshipIds String[]   @db.ObjectId
+  films       Film[]     @relation(fields: [filmIds], references: [id])
+  filmIds     String[]   @db.ObjectId
+  url         String     @unique
+}
+
+model Planet {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  rotation_period String
+  orbital_period  String
+  diameter        String
+  climate         String
+  gravity         String
+  terrain         String
+  surface_water   String
+  population      String
+  films           Film[]   @relation(fields: [filmIds], references: [id])
+  filmIds         String[] @db.ObjectId
+  residents       People[]
+  residentIds     String[] @db.ObjectId
+  url             String   @unique
+}
+
+model Starship {
+  id                     String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                   String
+  model                  String
+  manufacturer           String
+  cost_in_credits        String
+  length                 String
+  max_atmosphering_speed String
+  crew                   String
+  passengers             String
+  cargo_capacity         String
+  consumables            String
+  hyperdrive_rating      String
+  MGLT                   String
+  starship_class         String
+  pilots                 People[] @relation(fields: [pilotIds], references: [id])
+  pilotIds               String[] @db.ObjectId
+  films                  Film[]   @relation(fields: [filmIds], references: [id])
+  filmIds                String[] @db.ObjectId
+  url                    String   @unique
+}
