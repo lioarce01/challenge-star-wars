@@ -10,7 +10,9 @@ Los 4 endpoints de listado de elementos deberia permitirme filtrar la informacio
 
 Diseñar y desarrollar una interfaz responsive que pueda mostrar la información del API a implementar.
 
-Las vistas serian: Listado de cada entidad Poder ver un elemento de un listado con toda su información. En el listado debería poder paginar la información y tener una búsqueda local.
+Las vistas serian: Listado de cada entidad
+Poder ver un elemento de un listado con toda su información.
+En el listado debería poder paginar la información y tener una búsqueda local.
 
 Se espera que el API se encuentre desplegado en algun servicio en la nube y el frontend se encuentre en vercel para poder hacer las pruebas correspondientes.
 
