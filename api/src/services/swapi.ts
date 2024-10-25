@@ -9,12 +9,10 @@ const API_URL = process.env.API_URL || 'https://swapi.dev/api';
 
 async function fetchAndStoreData() {
   try {
-    // Fetch Films
     const filmsResponse = await axios.get(`${API_URL}/films/`);
     const films = filmsResponse.data.results;
 
     for (const film of films) {
-      // Check if the film already exists
       const existingFilm = await prisma.film.findUnique({
         where: { id: film.id },
       });
@@ -23,7 +21,6 @@ async function fetchAndStoreData() {
       if (existingFilm) {
         filmData = existingFilm;
       } else {
-        // Create new film if it doesn't exist
         filmData = await prisma.film.create({
           data: {
             title: film.title,
@@ -37,14 +34,12 @@ async function fetchAndStoreData() {
         });
       }
 
-      // Store character IDs
       const characterIds: string[] = [];
-      // Store planet IDs
+
       const planetIds: string[] = [];
-      // Store starship IDs
+
       const starshipIds: string[] = [];
 
-      // Fetch and store characters
       for (const characterUrl of film.characters) {
         const characterResponse = await axios.get(characterUrl);
         const character = characterResponse.data;
@@ -62,15 +57,14 @@ async function fetchAndStoreData() {
             birth_year: character.birth_year,
             gender: character.gender,
             homeworldId: await fetchAndStorePlanet(character.homeworld),
-            filmIds: [], // Initialize empty array for film IDs
-            starshipIds: [], // Initialize empty array for starship IDs
+            filmIds: [],
+            starshipIds: [],
             url: character.url,
           },
         });
 
         characterIds.push(characterData.id);
 
-        // Add film ID to character's filmIds
         await prisma.people.update({
           where: { id: characterData.id },
           data: {
@@ -79,7 +73,6 @@ async function fetchAndStoreData() {
         });
       }
 
-      // Fetch and store planets
       for (const planetUrl of film.planets) {
         const planetResponse = await axios.get(planetUrl);
         const planet = planetResponse.data;
@@ -97,15 +90,14 @@ async function fetchAndStoreData() {
             terrain: planet.terrain,
             surface_water: planet.surface_water,
             population: planet.population,
-            filmIds: [], // Initialize empty array for film IDs
-            residentIds: [], // Initialize empty array for resident IDs
+            filmIds: [],
+            residentIds: [],
             url: planet.url,
           },
         });
 
         planetIds.push(planetData.id);
 
-        // Add film ID to planet's filmIds
         await prisma.planet.update({
           where: { id: planetData.id },
           data: {
@@ -113,7 +105,6 @@ async function fetchAndStoreData() {
           },
         });
 
-        // Add residents
         for (const residentUrl of planet.residents) {
           const residentResponse = await axios.get(residentUrl);
           const resident = residentResponse.data;
@@ -130,14 +121,13 @@ async function fetchAndStoreData() {
               eye_color: resident.eye_color,
               birth_year: resident.birth_year,
               gender: resident.gender,
-              homeworldId: planetData.id, // Set homeworld to the current planet
-              filmIds: [], // Initialize empty array for film IDs
-              starshipIds: [], // Initialize empty array for starship IDs
+              homeworldId: planetData.id,
+              filmIds: [],
+              starshipIds: [],
               url: resident.url,
             },
           });
 
-          // Update planet with resident ID
           await prisma.planet.update({
             where: { id: planetData.id },
             data: {
@@ -145,7 +135,6 @@ async function fetchAndStoreData() {
             },
           });
 
-          // Add film ID to resident's filmIds
           await prisma.people.update({
             where: { id: residentData.id },
             data: {
@@ -155,7 +144,6 @@ async function fetchAndStoreData() {
         }
       }
 
-      // Fetch and store starships
       for (const starshipUrl of film.starships) {
         const starshipResponse = await axios.get(starshipUrl);
         const starship = starshipResponse.data;
@@ -177,15 +165,14 @@ async function fetchAndStoreData() {
             hyperdrive_rating: starship.hyperdrive_rating,
             MGLT: starship.MGLT,
             starship_class: starship.starship_class,
-            pilotIds: [], // Initialize empty array for pilot IDs
-            filmIds: [], // Initialize empty array for film IDs
+            pilotIds: [],
+            filmIds: [],
             url: starship.url,
           },
         });
 
         starshipIds.push(starshipData.id);
 
-        // Update film with starship ID
         await prisma.film.update({
           where: { id: filmData.id },
           data: {
@@ -193,7 +180,6 @@ async function fetchAndStoreData() {
           },
         });
 
-        // Add film ID to starship's filmIds
         await prisma.starship.update({
           where: { id: starshipData.id },
           data: {
@@ -201,7 +187,6 @@ async function fetchAndStoreData() {
           },
         });
 
-        // Fetch and store pilots
         for (const pilotUrl of starship.pilots) {
           const pilotResponse = await axios.get(pilotUrl);
           const pilot = pilotResponse.data;
@@ -219,8 +204,8 @@ async function fetchAndStoreData() {
               birth_year: pilot.birth_year,
               gender: pilot.gender,
               homeworldId: await fetchAndStorePlanet(pilot.homeworld),
-              filmIds: [], // Initialize empty array for film IDs
-              starshipIds: [], // Initialize empty array for starship IDs
+              filmIds: [],
+              starshipIds: [],
               url: pilot.url,
             },
           });
@@ -233,7 +218,6 @@ async function fetchAndStoreData() {
             },
           });
 
-          // Add starship ID to pilot's starshipIds
           await prisma.people.update({
             where: { id: pilotData.id },
             data: {
@@ -243,7 +227,6 @@ async function fetchAndStoreData() {
         }
       }
 
-      // Update film with character IDs
       await prisma.film.update({
         where: { id: filmData.id },
         data: {
@@ -251,7 +234,6 @@ async function fetchAndStoreData() {
         },
       });
 
-      // Update film with planet IDs
       await prisma.film.update({
         where: { id: filmData.id },
         data: {
@@ -259,7 +241,6 @@ async function fetchAndStoreData() {
         },
       });
 
-      // Update film with starship IDs
       await prisma.film.update({
         where: { id: filmData.id },
         data: {
@@ -272,7 +253,6 @@ async function fetchAndStoreData() {
   }
 }
 
-// Helper function to fetch and store a planet
 async function fetchAndStorePlanet(planetUrl: string): Promise<string> {
   const planetResponse = await axios.get(planetUrl);
   const planet = planetResponse.data;
@@ -290,8 +270,8 @@ async function fetchAndStorePlanet(planetUrl: string): Promise<string> {
       terrain: planet.terrain,
       surface_water: planet.surface_water,
       population: planet.population,
-      filmIds: [], // Initialize empty array for film IDs
-      residentIds: [], // Initialize empty array for resident IDs
+      filmIds: [],
+      residentIds: [],
       url: planet.url,
     },
   });
