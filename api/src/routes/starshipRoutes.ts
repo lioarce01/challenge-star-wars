@@ -7,8 +7,12 @@ import {
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
+  const offset = (page - 1) * limit;
+
   try {
-    const starships = await getAllStarships();
+    const starships = await getAllStarships(offset, limit);
     res.status(200).json(starships);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching starships' });

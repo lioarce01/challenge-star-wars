@@ -2,18 +2,16 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function getAllStarships() {
+export async function getAllStarships(offset: number, limit: number) {
   try {
     const starships = await prisma.starship.findMany({
+      skip: offset,
+      take: limit,
       include: {
         pilots: true,
         films: true,
       },
     });
-
-    if (!starships) {
-      throw new Error('No starships found');
-    }
 
     return starships;
   } catch (error) {

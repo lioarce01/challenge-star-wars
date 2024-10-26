@@ -5,8 +5,12 @@ import { PrismaClient } from '@prisma/client';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
+  const offset = (page - 1) * limit;
+
   try {
-    const people = await getAllPeople();
+    const people = await getAllPeople(offset, limit);
 
     if (!people) {
       res.status(404).json({ message: 'No people found' });

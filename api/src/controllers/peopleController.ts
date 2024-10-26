@@ -2,19 +2,17 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function getAllPeople() {
+export async function getAllPeople(offset: number, limit: number) {
   try {
     const people = await prisma.people.findMany({
+      skip: offset,
+      take: limit,
       include: {
         homeworld: true,
         starships: true,
         films: true,
       },
     });
-
-    if (!people) {
-      throw new Error('No people found');
-    }
 
     return people;
   } catch (error) {

@@ -4,10 +4,14 @@ import { getAllFilms, getFilmById } from '../controllers/filmController';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  try {
-    const films = await getAllFilms();
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
+  const offset = (page - 1) * limit;
 
-    if (!films) {
+  try {
+    const films = await getAllFilms(offset, limit);
+
+    if (films.length === 0) {
       res.status(404).json({ message: 'No films found' });
     }
 
