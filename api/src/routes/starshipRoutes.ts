@@ -11,11 +11,11 @@ router.get('/', async (req, res) => {
   const limit = parseInt(req.query.limit as string) || 10;
   const offset = (page - 1) * limit;
 
-  try {
-    const starships = await getAllStarships(offset, limit);
+  const starships = await getAllStarships(offset, limit);
+  if ('error' in starships && starships.error) {
+    res.status(404).json({ message: starships.message });
+  } else {
     res.status(200).json(starships);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching starships' });
   }
 });
 

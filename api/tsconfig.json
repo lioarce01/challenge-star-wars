@@ -11,8 +11,9 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "typeRoots": ["./types", "./node_modules/@types"]
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "types": ["jest", "node"]
   },
-  "include": ["src", "types, *.ts"],
+  "include": ["src/**/*.ts", "src/tests/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

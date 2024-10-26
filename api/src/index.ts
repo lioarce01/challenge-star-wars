@@ -1,23 +1,29 @@
 import express from 'express';
 import cron from 'node-cron';
 import sync from './services/syncService';
-import { PrismaClient } from '@prisma/client';
 import router from './routes';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 const app = express();
 app.use(express.json());
 
-const prisma = new PrismaClient();
 const PORT = process.env.PORT || 4000;
 
-cron.schedule('0 0 * * *', () => {
-  sync();
-});
+if (process.env.NODE_ENV !== 'test') {
+  cron.schedule('0 0 * * *', () => {
+    sync();
+  });
+}
 
 app.use('/', router);
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
 // sync()
 //   .then(async () => {
@@ -30,3 +36,5 @@ app.listen(PORT, () => {
 //   .finally(async () => {
 //     await prisma.$disconnect();
 //   });
+
+export default app;

@@ -13,10 +13,18 @@ export async function getAllStarships(offset: number, limit: number) {
       },
     });
 
+    if (starships.length === 0) {
+      return { error: true, message: 'Starships not found' };
+    }
+
     return starships;
   } catch (error) {
     console.error('Error fetching starships:', error);
-    throw error;
+    return {
+      error: true,
+      message: 'Error fetching starships',
+      details: error,
+    };
   }
 }
 
