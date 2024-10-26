@@ -1,6 +1,6 @@
 import express from 'express';
 import cron from 'node-cron';
-import sync from './services/syncService';
+import sync from './services/sync/syncService';
 import router from './routes';
 import { PrismaClient } from '@prisma/client';
 
@@ -31,9 +31,6 @@ if (process.env.NODE_ENV !== 'test') {
 //   })
 //   .catch(async (error) => {
 //     console.error(error);
-//     await prisma.$disconnect();
-//   })
-//   .finally(async () => {
 //     await prisma.$disconnect();
 //   });
 

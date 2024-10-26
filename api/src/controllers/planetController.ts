@@ -1,51 +1,26 @@
 import { PrismaClient } from '@prisma/client';
+import { Request, Response } from 'express';
+import { getAllPlanets, getPlanetById } from '../services/planetService';
 
 const prisma = new PrismaClient();
 
-export async function getAllPlanets(offset: number, limit: number) {
-  try {
-    const planets = await prisma.planet.findMany({
-      skip: offset,
-      take: limit,
-      include: {
-        residents: true,
-        films: true,
-      },
-    });
+export async function getPlanets(req: Request, res: Response) {
+  const { offset = 0, limit = 10 } = req.query;
 
-    return planets;
+  try {
+    const planets = await getAllPlanets(Number(offset), Number(limit));
+    res.status(200).json(planets);
   } catch (error) {
-    console.error('Error fetching planets:', error);
-    throw error;
+    res.status(500).json({ message: 'Error fetching planets' });
   }
 }
 
-export async function getPlanetById(id: string) {
-  try {
-    const planet = await prisma.planet.findUnique({
-      where: { id },
-      include: {
-        residents: true,
-        films: {
-          include: {
-            film: true,
-          },
-        },
-      },
-    });
+export async function getPlanetByIdHandler(req: Request, res: Response) {
+  const planet = await getPlanetById(req.params.id);
 
-    if (!planet) {
-      console.log('Planet not found');
-      return { error: true, message: 'Planet not found' };
-    }
-
-    return planet;
-  } catch (error) {
-    const e = error as Error;
-    return {
-      error: true,
-      message: 'Error fetching planet',
-      details: e.message,
-    };
+  if ('error' in planet && planet.error) {
+    res.status(404).json({ message: planet.message });
+  } else {
+    res.status(200).json(planet);
   }
 }

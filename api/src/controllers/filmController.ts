@@ -1,58 +1,23 @@
-import { PrismaClient } from '@prisma/client';
+import { Request, Response } from 'express';
+import { getAllFilms, getFilmById } from '../services/filmService';
 
-const prisma = new PrismaClient();
+export async function getFilms(req: Request, res: Response) {
+  const { offset = 0, limit = 10 } = req.query;
 
-export async function getAllFilms(offset: number, limit: number) {
   try {
-    const films = await prisma.film.findMany({
-      skip: offset,
-      take: limit,
-      include: {
-        characters: true,
-        planets: true,
-        starships: true,
-      },
-    });
-
-    return films;
+    const films = await getAllFilms(Number(offset), Number(limit));
+    res.status(200).json(films);
   } catch (error) {
-    console.error('Error fetching films:', error);
-    throw error;
+    res.status(500).json({ message: 'Error fetching films' });
   }
 }
 
-export async function getFilmById(id: string) {
-  try {
-    const film = await prisma.film.findUnique({
-      where: { id },
-      include: {
-        characters: {
-          include: {
-            person: true,
-          },
-        },
-        planets: {
-          include: {
-            planet: true,
-          },
-        },
-        starships: {
-          include: {
-            starship: true,
-          },
-        },
-      },
-    });
+export async function getFilmByIdHandler(req: Request, res: Response) {
+  const film = await getFilmById(req.params.id);
 
-    if (!film) {
-      console.log('Film not found');
-      return { error: true, message: 'Film not found' };
-    }
-
-    return film;
-  } catch (error) {
-    const e = error as Error;
-    console.error('Error fetching film:', error);
-    return { error: true, message: 'Error fetching film', details: e.message };
+  if ('error' in film && film.error) {
+    res.status(404).json({ message: film.message });
+  } else {
+    res.status(200).json(film);
   }
 }

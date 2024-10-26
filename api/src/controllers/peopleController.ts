@@ -1,58 +1,23 @@
-import { PrismaClient } from '@prisma/client';
+import { Request, Response } from 'express';
+import { getAllPeople, getPersonById } from '../services/peopleService';
 
-const prisma = new PrismaClient();
+export async function getPeople(req: Request, res: Response) {
+  const { offset = 0, limit = 10 } = req.query;
 
-export async function getAllPeople(offset: number, limit: number) {
   try {
-    const people = await prisma.people.findMany({
-      skip: offset,
-      take: limit,
-      include: {
-        homeworld: true,
-        starships: true,
-        films: true,
-      },
-    });
-
-    return people;
+    const people = await getAllPeople(Number(offset), Number(limit));
+    res.status(200).json(people);
   } catch (error) {
-    console.error('Error fetching people:', error);
-    throw error;
+    res.status(500).json({ message: 'Error fetching people' });
   }
 }
 
-export async function getPersonById(id: string) {
-  try {
-    const person = await prisma.people.findUnique({
-      where: { id },
-      include: {
-        homeworld: true,
-        starships: {
-          include: {
-            starship: true,
-          },
-        },
-        films: {
-          include: {
-            film: true,
-          },
-        },
-      },
-    });
+export async function getPersonByIdHandler(req: Request, res: Response) {
+  const person = await getPersonById(req.params.id);
 
-    if (!person) {
-      console.log('Person not found');
-      return { error: true, message: 'Person not found' };
-    }
-
-    return person;
-  } catch (error) {
-    const e = error as Error;
-    console.error('Error fetching person:', error);
-    return {
-      error: true,
-      message: 'Error fetching person',
-      details: e.message,
-    };
+  if ('error' in person && person.error) {
+    res.status(404).json({ message: person.message });
+  } else {
+    res.status(200).json(person);
   }
 }

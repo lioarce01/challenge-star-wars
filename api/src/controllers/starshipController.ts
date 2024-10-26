@@ -1,64 +1,23 @@
-import { PrismaClient } from '@prisma/client';
+import { Request, Response } from 'express';
+import { getAllStarships, getStarshipById } from '../services/starshipService';
 
-const prisma = new PrismaClient();
+export async function getStarships(req: Request, res: Response) {
+  const { offset = 0, limit = 10 } = req.query;
 
-export async function getAllStarships(offset: number, limit: number) {
   try {
-    const starships = await prisma.starship.findMany({
-      skip: offset,
-      take: limit,
-      include: {
-        pilots: true,
-        films: true,
-      },
-    });
-
-    if (starships.length === 0) {
-      return { error: true, message: 'Starships not found' };
-    }
-
-    return starships;
+    const starships = await getAllStarships(Number(offset), Number(limit));
+    res.status(200).json(starships);
   } catch (error) {
-    console.error('Error fetching starships:', error);
-    return {
-      error: true,
-      message: 'Error fetching starships',
-      details: error,
-    };
+    res.status(500).json({ message: 'Error fetching starships' });
   }
 }
 
-export async function getStarshipById(id: string) {
-  try {
-    const starship = await prisma.starship.findUnique({
-      where: { id },
-      include: {
-        pilots: {
-          include: {
-            pilot: true,
-          },
-        },
-        films: {
-          include: {
-            film: true,
-          },
-        },
-      },
-    });
+export async function getStarshipByIdHandler(req: Request, res: Response) {
+  const starship = await getStarshipById(req.params.id);
 
-    if (!starship) {
-      console.log('Starship not found');
-      return { error: true, message: 'Starship not found' };
-    }
-
-    return starship;
-  } catch (error) {
-    const e = error as Error;
-    console.error('Error fetching starship:', error);
-    return {
-      error: true,
-      message: 'Error fetching starship',
-      details: e.message,
-    };
+  if ('error' in starship && starship.error) {
+    res.status(404).json({ message: starship.message });
+  } else {
+    res.status(200).json(starship);
   }
 }
