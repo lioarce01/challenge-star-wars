@@ -2,11 +2,16 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function getAllStarships(offset: number, limit: number) {
+export async function getAllStarships(
+  offset: number,
+  limit: number,
+  filters: Record<string, string>
+) {
   try {
     const starships = await prisma.starship.findMany({
       skip: offset,
       take: limit,
+      where: filters,
       include: {
         pilots: true,
         films: true,

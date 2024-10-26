@@ -9,6 +9,41 @@ describe('GET /planets', () => {
   });
 });
 
+describe('GET /planets?offset=0&limit=5', () => {
+  it('should return a list of planets with offset and limit', async () => {
+    const response = await request(app).get('/planets?offset=0&limit=5');
+    expect(response.status).toBe(200);
+    expect(Array.isArray(response.body)).toBeTruthy();
+    expect(response.body.length).toBe(5);
+  });
+});
+
+describe('GET /planets?climate=arid', () => {
+  it('should return a list of planets with climate', async () => {
+    const response = await request(app).get('/planets?climate=arid');
+    expect(response.status).toBe(200);
+    expect(Array.isArray(response.body)).toBeTruthy();
+  });
+});
+
+describe('GET /planets?terrain=desert', () => {
+  it('should return a list of planets with terrain', async () => {
+    const response = await request(app).get('/planets?terrain=desert');
+    expect(response.status).toBe(200);
+    expect(Array.isArray(response.body)).toBeTruthy();
+  });
+});
+
+describe('GET /planets?climate=arid&terrain=desert', () => {
+  it('should return a list of planets with climate and terrain', async () => {
+    const response = await request(app).get(
+      '/planets?climate=arid&terrain=desert'
+    );
+    expect(response.status).toBe(200);
+    expect(Array.isArray(response.body)).toBeTruthy();
+  });
+});
+
 describe('GET /planets/:id', () => {
   it('should return a planet by id', async () => {
     const response = await request(app).get(

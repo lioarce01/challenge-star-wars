@@ -2,11 +2,16 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function getAllFilms(offset: number, limit: number) {
+export async function getAllFilms(
+  offset: number,
+  limit: number,
+  filters: Record<string, string | { contains: string }>
+) {
   try {
     const films = await prisma.film.findMany({
       skip: offset,
       take: limit,
+      where: filters,
       include: {
         characters: true,
         planets: true,

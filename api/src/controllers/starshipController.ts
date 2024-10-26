@@ -3,9 +3,21 @@ import { getAllStarships, getStarshipById } from '../services/starshipService';
 
 export async function getStarships(req: Request, res: Response) {
   const { offset = 0, limit = 10 } = req.query;
-
+  const { starship_class, manufacturer } = req.query;
   try {
-    const starships = await getAllStarships(Number(offset), Number(limit));
+    const filters: Record<string, string> = {};
+    if (starship_class) {
+      filters.starship_class = starship_class as string;
+    }
+    if (manufacturer) {
+      filters.manufacturer = manufacturer as string;
+    }
+
+    const starships = await getAllStarships(
+      Number(offset),
+      Number(limit),
+      filters
+    );
     res.status(200).json(starships);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching starships' });

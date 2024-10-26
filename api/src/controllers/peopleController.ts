@@ -3,9 +3,24 @@ import { getAllPeople, getPersonById } from '../services/peopleService';
 
 export async function getPeople(req: Request, res: Response) {
   const { offset = 0, limit = 10 } = req.query;
+  const { gender, homeworld, hair_color, skin_color } = req.query;
 
   try {
-    const people = await getAllPeople(Number(offset), Number(limit));
+    const filters: Record<string, string | { name: string }> = {};
+    if (gender) {
+      filters.gender = gender as string;
+    }
+    if (homeworld) {
+      filters.homeworld = { name: homeworld as string };
+    }
+    if (hair_color) {
+      filters.hair_color = hair_color as string;
+    }
+    if (skin_color) {
+      filters.skin_color = skin_color as string;
+    }
+
+    const people = await getAllPeople(Number(offset), Number(limit), filters);
     res.status(200).json(people);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching people' });
