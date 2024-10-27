@@ -5,6 +5,9 @@ import { filmApi } from '../api/film';
 import { planetApi } from '../api/planet';
 import { audioSlice } from '../slices/audioSlice';
 import peopleReducer from '../slices/peopleSlice';
+import filmReducer from '../slices/filmSlice';
+import planetReducer from '../slices/planetSlice';
+import starshipReducer from '../slices/starshipSlice';
 import filtersReducer from '../slices/filterSlice';
 
 export const store = configureStore({
@@ -15,6 +18,9 @@ export const store = configureStore({
     [planetApi.reducerPath]: planetApi.reducer,
     audio: audioSlice.reducer,
     peopleState: peopleReducer,
+    filmState: filmReducer,
+    planetReducer,
+    starshipReducer,
     filters: filtersReducer,
   },
   middleware: (getDefaultMiddleware) =>

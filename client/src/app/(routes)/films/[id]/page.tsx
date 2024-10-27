@@ -1,13 +1,13 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useGetPeopleByIdQuery } from '../../../redux/api/people';
 import Link from 'next/link';
-import { ArrowLeft, User } from 'lucide-react';
+import { ArrowLeft, Clapperboard } from 'lucide-react';
+import { useGetFilmByIdQuery } from '@/app/redux/api/film';
 
-const CharacterDetails = () => {
+const FilmDetail = () => {
   const { id } = useParams();
-  const { data: character, error, isLoading } = useGetPeopleByIdQuery(id);
+  const { data: film, error, isLoading } = useGetFilmByIdQuery(id);
 
   if (isLoading) {
     return (
@@ -20,7 +20,7 @@ const CharacterDetails = () => {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-black">
-        <p className="text-red-500 text-xl">Error loading character details.</p>
+        <p className="text-red-500 text-xl">Error loading film details.</p>
       </div>
     );
   }
@@ -28,65 +28,52 @@ const CharacterDetails = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 pt-20 sm:p-8 md:p-12 lg:p-20">
       <Link
-        href="/characters"
+        href="/films"
         className="inline-flex items-center text-yellow-400 hover:text-yellow-300 transition-colors duration-300 mb-4 sm:mb-8"
       >
         <ArrowLeft className="mr-2 font-semibold" size={20} />
-        <span className="text-sm sm:text-base">Back to Characters</span>
+        <span className="text-sm sm:text-base">Back to Films</span>
       </Link>
 
       <div className="max-w-4xl mx-auto bg-gray-800 rounded-lg overflow-hidden shadow-lg">
         <div className="p-4 sm:p-6 md:p-8">
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-400">
-              {character.name}
+              {film.title}
             </h1>
-            <User className="text-yellow-500" size={32} />
+            <Clapperboard className="text-yellow-500" size={32} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
             <div>
               <h2 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-4 text-yellow-400">
-                Personal Information
+                Film Information
               </h2>
               <ul className="space-y-2 sm:space-y-3">
                 <li className="flex justify-between">
-                  <span className="text-gray-400">Birth Year:</span>
-                  <span>{character.birth_year}</span>
+                  <span className="text-gray-400">Release Date:</span>
+                  <span>{film.release_date}</span>
                 </li>
                 <li className="flex justify-between">
-                  <span className="text-gray-400">Gender:</span>
-                  <span>{character.gender}</span>
+                  <span className="text-gray-400">Episode:</span>
+                  <span>{film.episode_id}</span>
                 </li>
                 <li className="flex justify-between">
-                  <span className="text-gray-400">Height:</span>
-                  <span>{character.height} cm</span>
+                  <span className="text-gray-400">Director:</span>
+                  <span>{film.director}</span>
                 </li>
                 <li className="flex justify-between">
-                  <span className="text-gray-400">Mass:</span>
-                  <span>{character.mass} kg</span>
+                  <span className="text-gray-400">Producer:</span>
+                  <span>{film.producer}</span>
                 </li>
               </ul>
             </div>
 
             <div>
               <h2 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-4 text-yellow-400">
-                Physical Attributes
+                Opening Crawl
               </h2>
-              <ul className="space-y-2 sm:space-y-3">
-                <li className="flex justify-between">
-                  <span className="text-gray-400">Eye Color:</span>
-                  <span>{character.eye_color}</span>
-                </li>
-                <li className="flex justify-between">
-                  <span className="text-gray-400">Hair Color:</span>
-                  <span>{character.hair_color}</span>
-                </li>
-                <li className="flex justify-between">
-                  <span className="text-gray-400">Skin Color:</span>
-                  <span>{character.skin_color}</span>
-                </li>
-              </ul>
+              <p>{film.opening_crawl}</p>
             </div>
           </div>
 
@@ -97,15 +84,23 @@ const CharacterDetails = () => {
             <ul className="space-y-3">
               <div className="flex flex-col sm:flex-row items-start justify-between">
                 <li className="flex flex-col mb-2 sm:mb-0">
-                  <span className="text-gray-400">Homeworld:</span>
-                  <span>{character?.homeworld.name}</span>
+                  <span className="text-gray-400 mb-1 sm:mb-2">
+                    Characters:
+                  </span>
+                  <ul className="list-disc list-inside pl-2 sm:pl-4">
+                    {film?.characters?.map((char: any, index: number) => (
+                      <li key={index} className="text-xs sm:text-sm">
+                        {char.person.name ? char.person.name : 'No Characters'}
+                      </li>
+                    ))}
+                  </ul>
                 </li>
                 <li className="flex flex-col mb-2 sm:mb-0">
-                  <span className="text-gray-400 mb-1 sm:mb-2">Films:</span>
+                  <span className="text-gray-400 mb-1 sm:mb-2">Planets:</span>
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
-                    {character?.films?.map((film: any, index: number) => (
+                    {film?.planets?.map((planet: any, index: number) => (
                       <li key={index} className="text-xs sm:text-sm">
-                        {film.film.title ? film.film.title : 'No Films'}
+                        {planet.planet.name ? planet.planet.name : 'No Planets'}
                       </li>
                     ))}
                   </ul>
@@ -113,15 +108,13 @@ const CharacterDetails = () => {
                 <li className="flex flex-col">
                   <span className="text-gray-400 mb-1 sm:mb-2">Starships:</span>
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
-                    {character?.starships?.map(
-                      (starship: any, index: number) => (
-                        <li key={index} className="text-xs sm:text-sm">
-                          {starship.starship
-                            ? starship.starship.name
-                            : 'No Starships'}
-                        </li>
-                      )
-                    )}
+                    {film?.starships?.map((starship: any, index: number) => (
+                      <li key={index} className="text-xs sm:text-sm">
+                        {starship.starship
+                          ? starship.starship.name
+                          : 'No Starships'}
+                      </li>
+                    ))}
                   </ul>
                 </li>
               </div>
@@ -133,4 +126,4 @@ const CharacterDetails = () => {
   );
 };
 
-export default CharacterDetails;
+export default FilmDetail;

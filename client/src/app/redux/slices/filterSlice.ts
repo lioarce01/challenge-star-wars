@@ -6,6 +6,8 @@ export interface FiltersState {
   skin_color: string;
   homeworld: string;
   searchTerm: string;
+  director: string;
+  producer: string;
 }
 
 const initialState: FiltersState = {
@@ -14,6 +16,8 @@ const initialState: FiltersState = {
   skin_color: '',
   homeworld: '',
   searchTerm: '',
+  director: '',
+  producer: '',
 };
 
 export const filtersSlice = createSlice({

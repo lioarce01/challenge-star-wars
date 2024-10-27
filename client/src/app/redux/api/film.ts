@@ -20,7 +20,7 @@ interface FilterValues {
 
 export const filmApi = createApi({
   reducerPath: 'film',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
 
   endpoints: (builder) => ({
     getFilms: builder.query<GetFilmsResponse, GetFilmsArgs>({
