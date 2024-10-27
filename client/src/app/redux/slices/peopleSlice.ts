@@ -12,7 +12,7 @@ const initialState: PeopleState = {
   people: [],
   totalCount: 0,
   currentPage: 1,
-  itemsPerPage: 5,
+  itemsPerPage: 9,
 };
 
 export const peopleSlice = createSlice({

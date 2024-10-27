@@ -20,13 +20,12 @@ export default function LandingPage() {
     <div className="relative min-h-screen w-full overflow-hidden text-white">
       <video
         ref={videoRef}
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-70 transition-transform  duration-100 -z-10"
+        className="absolute top-0 left-0 w-full min-h-screen object-cover opacity-70 transition-transform  duration-100 -z-10"
         src="/background.mp4"
         autoPlay
         loop
         muted
       ></video>
-
       <div
         className="lightsaber fixed w-4 h-40 bg-red-500 rounded-full blur-sm z-50 pointer-events-none opacity-50"
         style={{

@@ -76,26 +76,31 @@ const PeopleList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-8">
-      <form onSubmit={handleSubmit} className="mb-8">
-        <div className="mb-6 relative flex justify-center">
+    <div className="text-white px-8 bg-opacity-10">
+      <form
+        onSubmit={handleSubmit}
+        className="mb-8 bg-gray-800 p-6 rounded-lg shadow-lg"
+      >
+        <div className="mb-6 relative flex w-auto justify-center">
           <input
             type="text"
             placeholder="Search characters..."
             value={filters.searchTerm}
             onChange={(e) => dispatch(setSearchTerm(e.target.value))}
-            className="w-full max-w-md bg-gray-800 text-white border border-gray-700 rounded-md py-2 px-4 pl-10 focus:outline-none focus:border-yellow-500"
+            className="w-full bg-gray-700 text-white border border-gray-600 rounded-full py-2 px-4 pl-12 focus:outline-none focus:border-yellow-500 transition-all duration-300"
           />
           <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
         </div>
-        <div className="flex flex-wrap justify-center gap-4">
-          <label className="flex items-center">
-            <span className="mr-2">Gender:</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <label className="flex flex-col">
+            <span className="mb-2 text-sm font-medium text-gray-300">
+              Gender:
+            </span>
             <select
               name="gender"
               value={filters.gender}
               onChange={handleChange}
-              className="bg-gray-800 py-1 px-2 rounded-md"
+              className="bg-gray-700 text-white py-2 px-3 rounded-md border border-gray-600 focus:outline-none focus:border-yellow-500 transition-all duration-300"
             >
               <option value="">all</option>
               {filterValues?.genders.map((gender) => (
@@ -105,13 +110,15 @@ const PeopleList = () => {
               ))}
             </select>
           </label>
-          <label className="flex items-center">
-            <span className="mr-2">Hair Color:</span>
+          <label className="flex flex-col">
+            <span className="mb-2 text-sm font-medium text-gray-300">
+              Hair Color:
+            </span>
             <select
               name="hair_color"
               value={filters.hair_color}
               onChange={handleChange}
-              className="bg-gray-800 py-1 px-2 rounded-md"
+              className="bg-gray-700 text-white py-2 px-3 rounded-md border border-gray-600 focus:outline-none focus:border-yellow-500 transition-all duration-300"
             >
               <option value="">all</option>
               {filterValues?.hairColors.map((hair_color) => (
@@ -121,13 +128,15 @@ const PeopleList = () => {
               ))}
             </select>
           </label>
-          <label className="flex items-center">
-            <span className="mr-2">Skin Colors:</span>
+          <label className="flex flex-col">
+            <span className="mb-2 text-sm font-medium text-gray-300">
+              Skin Colors:
+            </span>
             <select
               name="skin_color"
               value={filters.skin_color}
               onChange={handleChange}
-              className="bg-gray-800 py-1 px-2 rounded-md"
+              className="bg-gray-700 text-white py-2 px-3 rounded-md border border-gray-600 focus:outline-none focus:border-yellow-500 transition-all duration-300"
             >
               <option value="">all</option>
               {filterValues?.skinColors.map((skinColors) => (
@@ -137,13 +146,15 @@ const PeopleList = () => {
               ))}
             </select>
           </label>
-          <label className="flex items-center">
-            <span className="mr-2">Homeworlds</span>
+          <label className="flex flex-col">
+            <span className="mb-2 text-sm font-medium text-gray-300">
+              Homeworlds:
+            </span>
             <select
               name="homeworld"
               value={filters.homeworlds}
               onChange={handleChange}
-              className="bg-gray-800 py-1 px-2 rounded-md"
+              className="bg-gray-700 text-white py-2 px-3 rounded-md border border-gray-600 focus:outline-none focus:border-yellow-500 transition-all duration-300"
             >
               <option value="">all</option>
               {filterValues?.homeworlds.map((homeworld) => (
@@ -154,58 +165,66 @@ const PeopleList = () => {
             </select>
           </label>
         </div>
-        <div className="mt-4 flex justify-center space-x-4">
+        <div className="flex justify-center">
           <button
             type="button"
             onClick={() => dispatch(clearFilters())}
-            className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors"
+            className="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
           >
             Clear Filters
           </button>
         </div>
       </form>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         {(isLoading || isFetching) && (
-          <p className="text-center col-span-full">Loading...</p>
+          <div className="col-span-full flex justify-center items-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-yellow-400"></div>
+          </div>
         )}
         {error && (
-          <p className="text-center col-span-full text-red-500">
+          <p className="col-span-full text-center text-red-500 text-xl">
             Error loading people.
           </p>
         )}
         {filteredPeople?.length === 0 && !isLoading && !isFetching && (
-          <p className="text-center col-span-full">No characters found.</p>
+          <p className="col-span-full text-center text-xl">
+            No characters found.
+          </p>
         )}
         {filteredPeople?.map((character: People) => (
           <Link href={`/characters/${character.id}`} key={character.id}>
-            <div className="bg-gray-800 rounded-md overflow-hidden shadow-lg hover:shadow-yellow-500/20 transition-shadow duration-300 cursor-pointer">
+            <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-yellow-500/20 transition-all duration-300 transform hover:scale-105">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-semibold">{character.name}</h2>
+                  <h2 className="text-2xl font-bold text-yellow-400">
+                    {character.name}
+                  </h2>
                   <User className="text-yellow-500" size={24} />
                 </div>
                 <div className="space-y-2 text-sm">
-                  <p>
-                    <span className="text-gray-400">Gender:</span>{' '}
-                    {character.gender}
+                  <p className="flex justify-between">
+                    <span className="text-gray-400">Gender:</span>
+                    <span>{character.gender}</span>
                   </p>
-                  <p>
-                    <span className="text-gray-400">Birth Year:</span>{' '}
-                    {character.birth_year}
+                  <p className="flex justify-between">
+                    <span className="text-gray-400">Birth Year:</span>
+                    <span>{character.birth_year}</span>
                   </p>
-                  <p>
-                    <span className="text-gray-400">Height:</span>{' '}
-                    {character.height} cm
+                  <p className="flex justify-between">
+                    <span className="text-gray-400">Height:</span>
+                    <span>{character.height} cm</span>
                   </p>
-                  <p>
-                    <span className="text-gray-400">Mass:</span>{' '}
-                    {character.mass} kg
+                  <p className="flex justify-between">
+                    <span className="text-gray-400">Mass:</span>
+                    <span>{character.mass} kg</span>
                   </p>
                 </div>
               </div>
-              <div className="bg-gray-700 px-6 py-3 flex justify-between items-center">
-                <span className="text-sm font-medium">View Details</span>
+              <div className="bg-gray-700 px-6 py-2 flex justify-between items-center">
+                <span className="text-sm font-medium text-yellow-400">
+                  View Details
+                </span>
                 <ChevronRight size={20} className="text-yellow-500" />
               </div>
             </div>
@@ -217,28 +236,28 @@ const PeopleList = () => {
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="p-2 rounded-full bg-gray-800 text-white disabled:opacity-50"
+          className="p-2 rounded-full bg-gray-800 text-white disabled:opacity-50 hover:bg-gray-700 transition-colors duration-300"
         >
           <ChevronLeftIcon size={20} />
         </button>
-        <span>
+        <span className="text-md">
           Page {currentPage} of {totalPages}
         </span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="p-2 rounded-full bg-gray-800 text-white disabled:opacity-50"
+          className="p-2 rounded-full bg-gray-800 text-white disabled:opacity-50 hover:bg-gray-700 transition-colors duration-300"
         >
           <ChevronRightIcon size={20} />
         </button>
         <select
           value={itemsPerPage}
           onChange={(e) => dispatch(setItemsPerPage(Number(e.target.value)))}
-          className="bg-gray-800 text-white py-1 px-2 rounded-md"
+          className="bg-gray-800 text-white py-2 px-3 rounded-md border border-gray-600 focus:outline-none focus:border-yellow-500 transition-all duration-300"
         >
-          <option value="5">5 per page</option>
-          <option value="10">10 per page</option>
-          <option value="20">20 per page</option>
+          <option value="9">9 per page</option>
+          <option value="18">18 per page</option>
+          <option value="36">36 per page</option>
         </select>
       </div>
     </div>

@@ -7,7 +7,7 @@ import NavItem from './NavItem';
 
 const Navigation = () => {
   return (
-    <nav className="fixed top-0 left-0 w-full p-6 flex justify-between items-center z-20 bg-black bg-opacity-50">
+    <nav className="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-20 bg-black bg-opacity-50">
       <Link href="/" className="text-2xl font-bold">
         STAR WARS
       </Link>
