@@ -28,30 +28,30 @@ const CharacterDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-20">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 pt-20 sm:p-8 md:p-12 lg:p-20">
       <Link
         href="/characters"
-        className="inline-flex items-center text-yellow-400 hover:text-yellow-300 transition-colors duration-300 mb-8"
+        className="inline-flex items-center text-yellow-400 hover:text-yellow-300 transition-colors duration-300 mb-4 sm:mb-8"
       >
         <ArrowLeft className="mr-2 font-semibold" size={20} />
-        Back to Characters
+        <span className="text-sm sm:text-base">Back to Characters</span>
       </Link>
 
       <div className="max-w-4xl mx-auto bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-        <div className="p-8">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-4xl font-bold text-yellow-400">
+        <div className="p-4 sm:p-6 md:p-8">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-400">
               {character.name}
             </h1>
-            <User className="text-yellow-500" size={40} />
+            <User className="text-yellow-500" size={32} />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
             <div>
-              <h2 className="text-2xl font-semibold mb-4 text-yellow-400">
+              <h2 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-4 text-yellow-400">
                 Personal Information
               </h2>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 <li className="flex justify-between">
                   <span className="text-gray-400">Birth Year:</span>
                   <span>{character.birth_year}</span>
@@ -72,10 +72,10 @@ const CharacterDetails = () => {
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold mb-4 text-yellow-400">
+              <h2 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-4 text-yellow-400">
                 Physical Attributes
               </h2>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 <li className="flex justify-between">
                   <span className="text-gray-400">Eye Color:</span>
                   <span>{character.eye_color}</span>
@@ -92,37 +92,41 @@ const CharacterDetails = () => {
             </div>
           </div>
 
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4 text-yellow-400">
+          <div className="mt-4 sm:mt-6 md:mt-8">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-4 text-yellow-400">
               Additional Information
             </h2>
             <ul className="space-y-3">
-              <li className="flex justify-between">
-                <span className="text-gray-400">Homeworld:</span>
-                <span>{character?.homeworld.name}</span>
-              </li>
-              <li className="flex flex-col">
-                <span className="text-gray-400 mb-2">Films:</span>
-                <ul className="list-disc list-inside pl-4">
-                  {character?.films?.map((film: any, index: number) => (
-                    <li key={index} className="text-sm">
-                      {film.film.title ? film.film.title : 'No Films'}
-                    </li>
-                  ))}
-                </ul>
-              </li>
-              <li className="flex flex-col">
-                <span className="text-gray-400 mb-2">Starships:</span>
-                <ul className="list-disc list-inside pl-4">
-                  {character?.starships?.map((starship: any, index: number) => (
-                    <li key={index} className="text-sm">
-                      {starship.starship
-                        ? starship.starship.name
-                        : 'No Starships'}
-                    </li>
-                  ))}
-                </ul>
-              </li>
+              <div className="flex flex-col sm:flex-row items-start justify-between">
+                <li className="flex flex-col mb-2 sm:mb-0">
+                  <span className="text-gray-400">Homeworld:</span>
+                  <span>{character?.homeworld.name}</span>
+                </li>
+                <li className="flex flex-col mb-2 sm:mb-0">
+                  <span className="text-gray-400 mb-1 sm:mb-2">Films:</span>
+                  <ul className="list-disc list-inside pl-2 sm:pl-4">
+                    {character?.films?.map((film: any, index: number) => (
+                      <li key={index} className="text-xs sm:text-sm">
+                        {film.film.title ? film.film.title : 'No Films'}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+                <li className="flex flex-col">
+                  <span className="text-gray-400 mb-1 sm:mb-2">Starships:</span>
+                  <ul className="list-disc list-inside pl-2 sm:pl-4">
+                    {character?.starships?.map(
+                      (starship: any, index: number) => (
+                        <li key={index} className="text-xs sm:text-sm">
+                          {starship.starship
+                            ? starship.starship.name
+                            : 'No Starships'}
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </li>
+              </div>
             </ul>
           </div>
         </div>

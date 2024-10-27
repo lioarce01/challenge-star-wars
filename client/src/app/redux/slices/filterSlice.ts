@@ -4,7 +4,7 @@ export interface FiltersState {
   gender: string;
   hair_color: string;
   skin_color: string;
-  homeworlds: string;
+  homeworld: string;
   searchTerm: string;
 }
 
@@ -12,7 +12,7 @@ const initialState: FiltersState = {
   gender: '',
   hair_color: '',
   skin_color: '',
-  homeworlds: '',
+  homeworld: '',
   searchTerm: '',
 };
 

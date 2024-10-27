@@ -152,7 +152,7 @@ const PeopleList = () => {
             </span>
             <select
               name="homeworld"
-              value={filters.homeworlds}
+              value={filters.homeworld}
               onChange={handleChange}
               className="bg-gray-700 text-white py-2 px-3 rounded-md border border-gray-600 focus:outline-none focus:border-yellow-500 transition-all duration-300"
             >
@@ -208,16 +208,16 @@ const PeopleList = () => {
                     <span>{character.gender}</span>
                   </p>
                   <p className="flex justify-between">
-                    <span className="text-gray-400">Birth Year:</span>
-                    <span>{character.birth_year}</span>
+                    <span className="text-gray-400">Hair Color:</span>
+                    <span>{character.hair_color}</span>
                   </p>
                   <p className="flex justify-between">
-                    <span className="text-gray-400">Height:</span>
-                    <span>{character.height} cm</span>
+                    <span className="text-gray-400">Skin color:</span>
+                    <span>{character.skin_color}</span>
                   </p>
                   <p className="flex justify-between">
-                    <span className="text-gray-400">Mass:</span>
-                    <span>{character.mass} kg</span>
+                    <span className="text-gray-400">Homeworld:</span>
+                    <span>{character?.homeworld?.name}</span>
                   </p>
                 </div>
               </div>
