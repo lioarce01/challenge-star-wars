@@ -4,8 +4,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 interface GetStarshipsArgs {
   offset: number;
   limit: number;
-  starship_class: string;
-  manufacturer: string;
+  starship_class?: string;
+  manufacturer?: string;
 }
 
 interface GetStarshipsResponse {

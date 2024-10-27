@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { User } from 'lucide-react';
+import { Earth } from 'lucide-react';
 import { Planet } from '@/types/planet';
 
 type PlanetListProps = {
@@ -16,7 +16,7 @@ const CharacterList: React.FC<PlanetListProps> = ({
   isFetching,
   error,
 }) => (
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-6">
     {isLoading || isFetching ? (
       <div className="col-span-full flex justify-center items-center">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-yellow-400"></div>
@@ -36,7 +36,7 @@ const CharacterList: React.FC<PlanetListProps> = ({
                 <h2 className="text-2xl font-bold text-yellow-400">
                   {planet.name}
                 </h2>
-                <User className="text-yellow-500" size={24} />
+                <Earth className="text-yellow-500" size={24} />
               </div>
               <div className="space-y-2 text-sm">
                 <p className="flex justify-between">

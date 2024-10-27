@@ -2,14 +2,14 @@ import { Starship } from '@/types/starship';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface StarshipState {
-  starship: Starship[];
+  starships: Starship[];
   totalCount: number;
   currentPage: number;
   itemsPerPage: number;
 }
 
 const initialState: StarshipState = {
-  starship: [],
+  starships: [],
   totalCount: 0,
   currentPage: 1,
   itemsPerPage: 9,
@@ -20,7 +20,7 @@ export const starshipSlice = createSlice({
   initialState,
   reducers: {
     setStarship: (state, action: PayloadAction<Starship[]>) => {
-      state.starship = action.payload;
+      state.starships = action.payload;
     },
     setTotalCount: (state, action: PayloadAction<number>) => {
       state.totalCount = action.payload;

@@ -88,33 +88,41 @@ const FilmDetail = () => {
                     Characters:
                   </span>
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
-                    {film?.characters?.map((char: any, index: number) => (
-                      <li key={index} className="text-xs sm:text-sm">
-                        {char.person.name ? char.person.name : 'No Characters'}
-                      </li>
-                    ))}
+                    {film?.characters.length === 0
+                      ? 'No characters'
+                      : film?.characters?.map((char: any, index: number) => (
+                          <li key={index} className="text-xs sm:text-sm">
+                            {char.person.name}
+                          </li>
+                        ))}
                   </ul>
                 </li>
                 <li className="flex flex-col mb-2 sm:mb-0">
                   <span className="text-gray-400 mb-1 sm:mb-2">Planets:</span>
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
-                    {film?.planets?.map((planet: any, index: number) => (
-                      <li key={index} className="text-xs sm:text-sm">
-                        {planet.planet.name ? planet.planet.name : 'No Planets'}
-                      </li>
-                    ))}
+                    {film?.planets.length === 0
+                      ? 'No planets'
+                      : film?.planets?.map((planet: any, index: number) => (
+                          <li key={index} className="text-xs sm:text-sm">
+                            {planet.planet.name
+                              ? planet.planet.name
+                              : 'No Planets'}
+                          </li>
+                        ))}
                   </ul>
                 </li>
                 <li className="flex flex-col">
                   <span className="text-gray-400 mb-1 sm:mb-2">Starships:</span>
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
-                    {film?.starships?.map((starship: any, index: number) => (
-                      <li key={index} className="text-xs sm:text-sm">
-                        {starship.starship
-                          ? starship.starship.name
-                          : 'No Starships'}
-                      </li>
-                    ))}
+                    {film?.starships.length === 0
+                      ? 'No starships'
+                      : film?.starships?.map((starship: any, index: number) => (
+                          <li key={index} className="text-xs sm:text-sm">
+                            {starship.starship
+                              ? starship.starship.name
+                              : 'No Starships'}
+                          </li>
+                        ))}
                   </ul>
                 </li>
               </div>

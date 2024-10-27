@@ -103,25 +103,27 @@ const CharacterDetails = () => {
                 <li className="flex flex-col mb-2 sm:mb-0">
                   <span className="text-gray-400 mb-1 sm:mb-2">Films:</span>
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
-                    {character?.films?.map((film: any, index: number) => (
-                      <li key={index} className="text-xs sm:text-sm">
-                        {film.film.title ? film.film.title : 'No Films'}
-                      </li>
-                    ))}
+                    {character?.films.length === 0
+                      ? 'No films'
+                      : character?.films?.map((film: any, index: number) => (
+                          <li key={index} className="text-xs sm:text-sm">
+                            {film.film.title ? film.film.title : 'No Films'}
+                          </li>
+                        ))}
                   </ul>
                 </li>
                 <li className="flex flex-col">
                   <span className="text-gray-400 mb-1 sm:mb-2">Starships:</span>
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
-                    {character?.starships?.map(
-                      (starship: any, index: number) => (
-                        <li key={index} className="text-xs sm:text-sm">
-                          {starship.starship
-                            ? starship.starship.name
-                            : 'No Starships'}
-                        </li>
-                      )
-                    )}
+                    {character?.starships.length === 0
+                      ? 'No starships'
+                      : character?.starships?.map(
+                          (starship: any, index: number) => (
+                            <li key={index} className="text-xs sm:text-sm">
+                              {starship.starship.name}
+                            </li>
+                          )
+                        )}
                   </ul>
                 </li>
               </div>

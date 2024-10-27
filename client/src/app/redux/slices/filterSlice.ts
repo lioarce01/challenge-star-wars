@@ -10,6 +10,8 @@ export interface FiltersState {
   producer: string;
   climate: string;
   terrain: string;
+  starship_class: string;
+  manufacturer: string;
 }
 
 const initialState: FiltersState = {
@@ -22,6 +24,8 @@ const initialState: FiltersState = {
   producer: '',
   climate: '',
   terrain: '',
+  starship_class: '',
+  manufacturer: '',
 };
 
 export const filtersSlice = createSlice({

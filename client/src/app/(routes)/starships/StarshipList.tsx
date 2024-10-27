@@ -1,17 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
-import { Clapperboard } from 'lucide-react';
-import { Film } from '@/types/film';
+import { Rocket } from 'lucide-react';
+import { Starship } from '@/types/starship';
 
-type FilmListProps = {
-  film: Film[];
+type StarshipListProps = {
+  starships: Starship[];
   isLoading: boolean;
   isFetching: boolean;
   error: any;
 };
 
-const CharacterList: React.FC<FilmListProps> = ({
-  film,
+const CharacterList: React.FC<StarshipListProps> = ({
+  starships,
   isLoading,
   isFetching,
   error,
@@ -23,37 +23,37 @@ const CharacterList: React.FC<FilmListProps> = ({
       </div>
     ) : error ? (
       <p className="col-span-full text-center text-red-500 text-xl">
-        Error loading films.
+        Error loading starships.
       </p>
-    ) : film.length === 0 ? (
-      <p className="col-span-full text-center text-xl">No films found.</p>
+    ) : starships?.length === 0 ? (
+      <p className="col-span-full text-center text-xl">No starships found.</p>
     ) : (
-      film.map((film) => (
-        <Link href={`/films/${film.id}`} key={film.id}>
+      starships?.map((starship: Starship) => (
+        <Link href={`/starships/${starship.id}`} key={starship.id}>
           <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-yellow-500/20 transition-all duration-300 transform hover:scale-105">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-yellow-400">
-                  {film.title}
+                  {starship?.name}
                 </h2>
-                <Clapperboard className="text-yellow-500" size={24} />
+                <Rocket className="text-yellow-500" size={24} />
               </div>
               <div className="space-y-2 text-sm">
                 <p className="flex justify-between">
-                  <span className="text-gray-400">Director:</span>
-                  <span>{film.director}</span>
+                  <span className="text-gray-400">Model:</span>
+                  <span>{starship?.model}</span>
                 </p>
                 <p className="flex justify-between">
-                  <span className="text-gray-400">Producer:</span>
-                  <span>{film.producer}</span>
+                  <span className="text-gray-400">Crew:</span>
+                  <span>{starship?.crew}</span>
                 </p>
                 <p className="flex justify-between">
-                  <span className="text-gray-400">Release Date:</span>
-                  <span>{film.release_date}</span>
+                  <span className="text-gray-400">Starship class:</span>
+                  <span>{starship?.starship_class}</span>
                 </p>
                 <p className="flex justify-between">
-                  <span className="text-gray-400">Episode:</span>
-                  <span>{film?.episode_id}</span>
+                  <span className="text-gray-400">Consumables:</span>
+                  <span>{starship?.consumables}</span>
                 </p>
               </div>
             </div>

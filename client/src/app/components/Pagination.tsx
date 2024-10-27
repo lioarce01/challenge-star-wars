@@ -17,8 +17,6 @@ const Pagination: React.FC<PaginationProps> = ({
   itemsPerPage,
   setItemsPerPage,
 }) => {
-  const dispatch = useDispatch();
-
   return (
     <div className="flex justify-center items-center space-x-4">
       <button

@@ -1,20 +1,11 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function LandingPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden text-white">
@@ -26,14 +17,6 @@ export default function LandingPage() {
         loop
         muted
       ></video>
-      <div
-        className="lightsaber fixed w-4 h-40 bg-red-500 rounded-full blur-sm z-50 pointer-events-none opacity-50"
-        style={{
-          left: `${cursorPosition.x}px`,
-          top: `${cursorPosition.y}px`,
-          transform: 'translate(-50%, -50%) rotate(45deg)',
-        }}
-      ></div>
 
       <main className="relative z-10 min-h-screen">
         <section className="h-screen flex flex-col items-center justify-center text-center px-4">
