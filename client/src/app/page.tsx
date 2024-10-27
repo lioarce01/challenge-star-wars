@@ -1,81 +1,84 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export default function LandingPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [volume, setVolume] = useState(0.2);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const video = videoRef.current;
-
-      const moveX = clientX / 150;
-      const moveY = clientY / 150;
-      if (video instanceof HTMLVideoElement) {
-        video.style.transform = `translate(-${moveX}px, -${moveY}px)`;
-      }
+      setCursorPosition({ x: e.clientX, y: e.clientY });
     };
-
     window.addEventListener('mousemove', handleMouseMove);
-
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value);
-    setVolume(newVolume);
-
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume;
-    }
-  };
-
-  const handlePlay = () => {
-    if (audioRef.current?.muted) {
-      audioRef.current.muted = false;
-    } else if (audioRef.current?.paused) {
-      audioRef.current.play();
-    } else {
-      audioRef.current?.pause();
-    }
-  };
-
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative min-h-screen w-full overflow-hidden text-white">
       <video
         ref={videoRef}
-        className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-100 -z-10"
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-70 transition-transform  duration-100 -z-10"
         src="/background.mp4"
         autoPlay
         loop
         muted
       ></video>
-      <audio ref={audioRef} src="/music.mp3" autoPlay loop muted></audio>
 
-      <div className="relative z-10 bg-black p-8 bg-opacity-40 w-full min-h-screen flex flex-col items-center justify-center">
-        <div className="absolute right-4 top-4 w-full space-x-4 flex justify-end items-center">
-          <button onClick={handlePlay}>Play</button>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={volume}
-            onChange={handleVolumeChange}
-            className="w-40"
-          />
-        </div>
-        <h1 className="text-6xl font-bold">STAR WARS</h1>
-        <p className="mt-4 text-2xl">
-          A long time ago in a galaxy far, far away...
-        </p>
-        <button className="mt-4 bg-white text-black px-4 py-2 rounded-md hover:bg-gray-400 transition-all duration-300 ease-in-out hover:scale-105">
-          Enter
-        </button>
-      </div>
+      <div
+        className="lightsaber fixed w-4 h-40 bg-red-500 rounded-full blur-sm z-50 pointer-events-none opacity-50"
+        style={{
+          left: `${cursorPosition.x}px`,
+          top: `${cursorPosition.y}px`,
+          transform: 'translate(-50%, -50%) rotate(45deg)',
+        }}
+      ></div>
+
+      <main className="relative z-10 min-h-screen">
+        <section className="h-screen flex flex-col items-center justify-center text-center px-4">
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-6xl md:text-8xl font-bold mb-6"
+          >
+            STAR WARS
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="text-xl md:text-2xl mb-8"
+          >
+            A long time ago in a galaxy far, far away...
+          </motion.p>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-yellow-400 text-black px-8 py-3 rounded-full text-lg font-semibold hover:bg-yellow-300 transition-colors duration-300"
+          >
+            Explore the Galaxy
+          </motion.button>
+        </section>
+      </main>
+
+      <footer className="bg-black bg-opacity-80 text-center py-6">
+        <p>&copy; 2024 Star Wars. All rights reserved.</p>
+      </footer>
     </div>
+  );
+}
+
+function NavItem({ icon, text }: { icon: React.ReactNode; text: string }) {
+  return (
+    <Link
+      href="#"
+      className="flex items-center space-x-2 hover:text-yellow-400 transition-colors"
+    >
+      {icon}
+      <span>{text}</span>
+    </Link>
   );
 }
