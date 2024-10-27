@@ -2,14 +2,14 @@ import { Planet } from '@/types/planet';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface PlanetState {
-  planet: Planet[];
+  planets: Planet[];
   totalCount: number;
   currentPage: number;
   itemsPerPage: number;
 }
 
 const initialState: PlanetState = {
-  planet: [],
+  planets: [],
   totalCount: 0,
   currentPage: 1,
   itemsPerPage: 9,
@@ -20,7 +20,7 @@ export const planetSlice = createSlice({
   initialState,
   reducers: {
     setPlanet: (state, action: PayloadAction<Planet[]>) => {
-      state.planet = action.payload;
+      state.planets = action.payload;
     },
     setTotalCount: (state, action: PayloadAction<number>) => {
       state.totalCount = action.payload;

@@ -20,7 +20,7 @@ interface FilterValues {
 
 export const planetApi = createApi({
   reducerPath: 'planet',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
 
   endpoints: (builder) => ({
     getPlanets: builder.query<getPlanetsResponse, GetPlanetsArgs>({
@@ -35,7 +35,7 @@ export const planetApi = createApi({
     }),
 
     getFilterValues: builder.query<FilterValues, void>({
-      query: () => 'planets/filter-value',
+      query: () => 'planets/filter-values',
     }),
   }),
 });

@@ -1,17 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
-import { People } from '@/types/people';
 import { User } from 'lucide-react';
+import { Planet } from '@/types/planet';
 
-type CharacterListProps = {
-  characters: People[];
+type PlanetListProps = {
+  planets: Planet[];
   isLoading: boolean;
   isFetching: boolean;
   error: any;
 };
 
-const CharacterList: React.FC<CharacterListProps> = ({
-  characters,
+const CharacterList: React.FC<PlanetListProps> = ({
+  planets,
   isLoading,
   isFetching,
   error,
@@ -23,37 +23,37 @@ const CharacterList: React.FC<CharacterListProps> = ({
       </div>
     ) : error ? (
       <p className="col-span-full text-center text-red-500 text-xl">
-        Error loading people.
+        Error loading planets.
       </p>
-    ) : characters.length === 0 ? (
-      <p className="col-span-full text-center text-xl">No characters found.</p>
+    ) : planets.length === 0 ? (
+      <p className="col-span-full text-center text-xl">No planets found.</p>
     ) : (
-      characters.map((character: People) => (
-        <Link href={`/characters/${character.id}`} key={character.id}>
+      planets.map((planet: Planet) => (
+        <Link href={`/planets/${planet.id}`} key={planet.id}>
           <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-yellow-500/20 transition-all duration-300 transform hover:scale-105">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-yellow-400">
-                  {character.name}
+                  {planet.name}
                 </h2>
                 <User className="text-yellow-500" size={24} />
               </div>
               <div className="space-y-2 text-sm">
                 <p className="flex justify-between">
-                  <span className="text-gray-400">Gender:</span>
-                  <span>{character.gender}</span>
+                  <span className="text-gray-400">Climate:</span>
+                  <span>{planet.climate}</span>
                 </p>
                 <p className="flex justify-between">
-                  <span className="text-gray-400">Hair Color:</span>
-                  <span>{character.hair_color}</span>
+                  <span className="text-gray-400">Terrain:</span>
+                  <span>{planet.terrain}</span>
                 </p>
                 <p className="flex justify-between">
-                  <span className="text-gray-400">Skin color:</span>
-                  <span>{character.skin_color}</span>
+                  <span className="text-gray-400">Gravity:</span>
+                  <span>{planet.gravity}</span>
                 </p>
                 <p className="flex justify-between">
-                  <span className="text-gray-400">Homeworld:</span>
-                  <span>{character?.homeworld?.name}</span>
+                  <span className="text-gray-400">Diameter:</span>
+                  <span>{planet?.diameter} KM</span>
                 </p>
               </div>
             </div>

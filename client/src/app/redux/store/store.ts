@@ -19,8 +19,8 @@ export const store = configureStore({
     audio: audioSlice.reducer,
     peopleState: peopleReducer,
     filmState: filmReducer,
-    planetReducer,
-    starshipReducer,
+    planetState: planetReducer,
+    starshipState: starshipReducer,
     filters: filtersReducer,
   },
   middleware: (getDefaultMiddleware) =>

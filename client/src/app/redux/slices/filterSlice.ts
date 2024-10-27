@@ -8,6 +8,8 @@ export interface FiltersState {
   searchTerm: string;
   director: string;
   producer: string;
+  climate: string;
+  terrain: string;
 }
 
 const initialState: FiltersState = {
@@ -18,6 +20,8 @@ const initialState: FiltersState = {
   searchTerm: '',
   director: '',
   producer: '',
+  climate: '',
+  terrain: '',
 };
 
 export const filtersSlice = createSlice({
