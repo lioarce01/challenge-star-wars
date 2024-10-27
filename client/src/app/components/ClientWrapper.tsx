@@ -9,7 +9,7 @@ const ClientWrapper = () => {
 
   return (
     <div className="absolute bottom-0 left-0 w-full z-10">
-      {/* <AudioPlayer /> */}
+      <AudioPlayer />
       <Navigation />
     </div>
   );

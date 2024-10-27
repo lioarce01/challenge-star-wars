@@ -16,9 +16,11 @@ const AudioPlayer = () => {
     if (!audioRef.current) {
       audioRef.current = new Audio('/music.mp3');
       audioRef.current.loop = true;
+      audioRef.current.muted = volume === 0;
       audioRef.current.play();
     } else {
       audioRef.current.volume = volume;
+      audioRef.current.muted = volume === 0;
       if (isPlaying) {
         audioRef.current.play();
       } else {
@@ -36,13 +38,13 @@ const AudioPlayer = () => {
   };
 
   return (
-    <>
-      <div className="z-10 flex flex-row items-center absolute left-4 bottom-4 space-x-4">
+    <div className="fixed bottom-0 left-0 w-full bg-transparent p-4 z-20">
+      <div className="flex items-center space-x-4">
         <button
-          className="bg-[#29282880] text-white px-2 py-1 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
+          className="bg-gray-700 text-white px-3 py-2 rounded-full transition-all duration-300 hover:bg-yellow-400"
           onClick={handlePlay}
         >
-          {isPlaying ? <PauseIcon /> : <PlayIcon />}
+          {isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
         </button>
         <input
           type="range"
@@ -54,7 +56,7 @@ const AudioPlayer = () => {
           className="w-40"
         />
       </div>
-    </>
+    </div>
   );
 };
 

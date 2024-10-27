@@ -37,15 +37,6 @@ const Pagination: React.FC<PaginationProps> = ({
       >
         <ChevronRightIcon size={20} />
       </button>
-      <select
-        value={itemsPerPage}
-        onChange={() => setItemsPerPage}
-        className="bg-gray-800 text-white py-2 px-3 rounded-md border border-gray-600 focus:outline-none focus:border-yellow-500 transition-all duration-300"
-      >
-        <option value="9">9 per page</option>
-        <option value="18">18 per page</option>
-        <option value="36">36 per page</option>
-      </select>
     </div>
   );
 };

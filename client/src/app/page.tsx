@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function LandingPage() {
@@ -20,47 +19,20 @@ export default function LandingPage() {
 
       <main className="relative z-10 min-h-screen">
         <section className="h-screen flex flex-col items-center justify-center text-center px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-6xl md:text-8xl font-bold mb-6"
-          >
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 animate-fade-in-up">
             STAR WARS
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="text-xl md:text-2xl mb-8"
-          >
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 animate-fade-in-delay">
             A long time ago in a galaxy far, far away...
-          </motion.p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-yellow-400 text-black px-8 py-3 rounded-full text-lg font-semibold hover:bg-yellow-300 transition-colors duration-300"
+          </p>
+          <Link
+            href="/characters"
+            className="bg-yellow-400 text-black px-8 py-3 rounded-full text-lg font-semibold hover:bg-yellow-300 transition-transform transform duration-300 hover:scale-105 active:scale-95"
           >
             Explore the Galaxy
-          </motion.button>
+          </Link>
         </section>
       </main>
-
-      <footer className="bg-black bg-opacity-80 text-center py-6">
-        <p>&copy; 2024 Star Wars. All rights reserved.</p>
-      </footer>
     </div>
-  );
-}
-
-function NavItem({ icon, text }: { icon: React.ReactNode; text: string }) {
-  return (
-    <Link
-      href="#"
-      className="flex items-center space-x-2 hover:text-yellow-400 transition-colors"
-    >
-      {icon}
-      <span>{text}</span>
-    </Link>
   );
 }

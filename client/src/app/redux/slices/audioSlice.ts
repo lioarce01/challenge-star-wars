@@ -7,7 +7,7 @@ interface AudioState {
 
 const initialState: AudioState = {
   volume: 0.1,
-  isPlaying: true,
+  isPlaying: false,
 };
 
 export const audioSlice = createSlice({
