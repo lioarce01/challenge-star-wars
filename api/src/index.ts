@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: ['https://lionel-arce-star-wars.vercel.app', 'http://localhost:3000'],
   methods: 'GET',
 };
 

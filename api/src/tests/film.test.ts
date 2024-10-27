@@ -5,7 +5,12 @@ describe('GET /films', () => {
   it('should return a list of films', async () => {
     const response = await request(app).get('/films');
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
+
+    expect(typeof response.body).toBe('object');
+
+    expect(Array.isArray(response.body.results)).toBeTruthy();
+
+    expect(typeof response.body.count).toBe('number');
   });
 });
 
@@ -13,8 +18,14 @@ describe('GET /films?offset=0&limit=5', () => {
   it('should return a list of films with offset and limit', async () => {
     const response = await request(app).get('/films?offset=0&limit=5');
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
-    expect(response.body.length).toBe(5);
+
+    expect(typeof response.body).toBe('object');
+
+    expect(Array.isArray(response.body.results)).toBeTruthy();
+
+    expect(typeof response.body.count).toBe('number');
+
+    expect(response.body.results.length).toBe(5);
   });
 });
 
@@ -22,7 +33,12 @@ describe('GET /films?director=George Lucas', () => {
   it('should return a list of films with director', async () => {
     const response = await request(app).get('/films?director=George Lucas');
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
+
+    expect(typeof response.body).toBe('object');
+
+    expect(Array.isArray(response.body.results)).toBeTruthy();
+
+    expect(typeof response.body.count).toBe('number');
   });
 });
 
@@ -30,7 +46,12 @@ describe('GET /films?producer=Gary Kurtz', () => {
   it('should return a list of films with producer', async () => {
     const response = await request(app).get('/films?producer=Gary Kurtz');
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
+
+    expect(typeof response.body).toBe('object');
+
+    expect(Array.isArray(response.body.results)).toBeTruthy();
+
+    expect(typeof response.body.count).toBe('number');
   });
 });
 
@@ -40,7 +61,12 @@ describe('GET /films?director=George Lucas&producer=Gary Kurtz', () => {
       '/films?director=George Lucas&producer=Gary Kurtz'
     );
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
+
+    expect(typeof response.body).toBe('object');
+
+    expect(Array.isArray(response.body.results)).toBeTruthy();
+
+    expect(typeof response.body.count).toBe('number');
   });
 });
 

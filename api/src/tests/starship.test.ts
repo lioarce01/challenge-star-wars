@@ -5,7 +5,12 @@ describe('GET /starships', () => {
   it('should return a list of starships', async () => {
     const response = await request(app).get('/starships');
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
+
+    expect(typeof response.body).toBe('object');
+
+    expect(Array.isArray(response.body.results)).toBeTruthy();
+
+    expect(typeof response.body.count).toBe('number');
   });
 });
 
@@ -13,8 +18,13 @@ describe('GET /starships?offset=0&limit=5', () => {
   it('should return a list of starships with offset and limit', async () => {
     const response = await request(app).get('/starships?offset=0&limit=5');
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
-    expect(response.body.length).toBe(5);
+
+    expect(typeof response.body).toBe('object');
+
+    expect(Array.isArray(response.body.results)).toBeTruthy();
+
+    expect(typeof response.body.count).toBe('number');
+    expect(response.body.results.length).toBe(5);
   });
 });
 
@@ -24,7 +34,12 @@ describe('GET /starships?starship_class=Star Destroyer', () => {
       '/starships?starship_class=Star Destroyer'
     );
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
+
+    expect(typeof response.body).toBe('object');
+
+    expect(Array.isArray(response.body.results)).toBeTruthy();
+
+    expect(typeof response.body.count).toBe('number');
   });
 });
 
@@ -34,7 +49,12 @@ describe('GET /starships?manufacturer=Corellian Engineering Corporation', () => 
       '/starships?manufacturer=Corellian Engineering Corporation'
     );
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
+
+    expect(typeof response.body).toBe('object');
+
+    expect(Array.isArray(response.body.results)).toBeTruthy();
+
+    expect(typeof response.body.count).toBe('number');
   });
 });
 
@@ -44,7 +64,12 @@ describe('GET /starships?manufacturer=Corellian Engineering Corporation&starship
       '/starships?manufacturer=Corellian Engineering Corporation&starship_class=corvette'
     );
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
+
+    expect(typeof response.body).toBe('object');
+
+    expect(Array.isArray(response.body.results)).toBeTruthy();
+
+    expect(typeof response.body.count).toBe('number');
   });
 });
 
