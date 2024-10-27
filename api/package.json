@@ -10,7 +10,7 @@
     "node-cron": "^3.0.3"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "NODE_ENV=development tsc",
     "start": "node dist/index.js",
     "dev": "nodemon ./src/index.ts",
     "format": "prettier --write .",
