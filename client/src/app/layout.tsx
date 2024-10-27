@@ -6,6 +6,7 @@ import Providers from './components/Providers';
 export const metadata: Metadata = {
   title: 'Starwars - Lionel Arce',
   description: 'Nextjs starwars web',
+  icons: '/icon.png',
 };
 
 export default function RootLayout({

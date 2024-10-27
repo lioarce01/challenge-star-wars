@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { Earth } from 'lucide-react';
 import { Planet } from '@/types/planet';
+import SkeletonCard from '@/app/components/SkeletonCard';
 
 type PlanetListProps = {
   planets: Planet[];
@@ -18,9 +21,7 @@ const CharacterList: React.FC<PlanetListProps> = ({
 }) => (
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-6">
     {isLoading || isFetching ? (
-      <div className="col-span-full flex justify-center items-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-yellow-400"></div>
-      </div>
+      Array.from({ length: 9 }).map((_, index) => <SkeletonCard key={index} />)
     ) : error ? (
       <p className="col-span-full text-center text-red-500 text-xl">
         Error loading planets.
