@@ -31,78 +31,110 @@ const importData = async () => {
     const starshipMap = new Map();
 
     for (const planet of planets) {
-      const created = await prisma.planet.create({
-        data: {
-          url: planet.url,
-          name: planet.name,
-          rotation_period: planet.rotation_period,
-          orbital_period: planet.orbital_period,
-          diameter: planet.diameter,
-          climate: planet.climate,
-          gravity: planet.gravity,
-          terrain: planet.terrain,
-          surface_water: planet.surface_water,
-          population: planet.population,
-        },
+      const existingPlanet = await prisma.planet.findUnique({
+        where: { url: planet.url },
       });
-      planetMap.set(planet.url, created.id);
+
+      if (!existingPlanet) {
+        const created = await prisma.planet.create({
+          data: {
+            url: planet.url,
+            name: planet.name,
+            rotation_period: planet.rotation_period,
+            orbital_period: planet.orbital_period,
+            diameter: planet.diameter,
+            climate: planet.climate,
+            gravity: planet.gravity,
+            terrain: planet.terrain,
+            surface_water: planet.surface_water,
+            population: planet.population,
+          },
+        });
+        planetMap.set(planet.url, created.id);
+      } else {
+        planetMap.set(planet.url, existingPlanet.id);
+      }
     }
 
     for (const person of people) {
-      const created = await prisma.people.create({
-        data: {
-          url: person.url,
-          name: person.name,
-          height: person.height,
-          mass: person.mass,
-          hair_color: person.hair_color,
-          skin_color: person.skin_color,
-          eye_color: person.eye_color,
-          birth_year: person.birth_year,
-          gender: person.gender,
-          homeworldId: person.homeworld
-            ? planetMap.get(person.homeworld)
-            : null,
-        },
+      const existingPerson = await prisma.people.findUnique({
+        where: { url: person.url },
       });
-      peopleMap.set(person.url, created.id);
+
+      if (!existingPerson) {
+        const created = await prisma.people.create({
+          data: {
+            url: person.url,
+            name: person.name,
+            height: person.height,
+            mass: person.mass,
+            hair_color: person.hair_color,
+            skin_color: person.skin_color,
+            eye_color: person.eye_color,
+            birth_year: person.birth_year,
+            gender: person.gender,
+            homeworldId: person.homeworld
+              ? planetMap.get(person.homeworld)
+              : null,
+          },
+        });
+        peopleMap.set(person.url, created.id);
+      } else {
+        peopleMap.set(person.url, existingPerson.id);
+      }
     }
 
     for (const starship of starships) {
-      const created = await prisma.starship.create({
-        data: {
-          url: starship.url,
-          name: starship.name,
-          model: starship.model,
-          manufacturer: starship.manufacturer,
-          cost_in_credits: starship.cost_in_credits,
-          length: starship.length,
-          max_atmosphering_speed: starship.max_atmosphering_speed,
-          crew: starship.crew,
-          passengers: starship.passengers,
-          cargo_capacity: starship.cargo_capacity,
-          consumables: starship.consumables,
-          hyperdrive_rating: starship.hyperdrive_rating,
-          MGLT: starship.MGLT,
-          starship_class: starship.starship_class,
-        },
+      const existingStarship = await prisma.starship.findUnique({
+        where: { url: starship.url },
       });
-      starshipMap.set(starship.url, created.id);
+
+      if (!existingStarship) {
+        const created = await prisma.starship.create({
+          data: {
+            url: starship.url,
+            name: starship.name,
+            model: starship.model,
+            manufacturer: starship.manufacturer,
+            cost_in_credits: starship.cost_in_credits,
+            length: starship.length,
+            max_atmosphering_speed: starship.max_atmosphering_speed,
+            crew: starship.crew,
+            passengers: starship.passengers,
+            cargo_capacity: starship.cargo_capacity,
+            consumables: starship.consumables,
+            hyperdrive_rating: starship.hyperdrive_rating,
+            MGLT: starship.MGLT,
+            starship_class: starship.starship_class,
+          },
+        });
+        starshipMap.set(starship.url, created.id);
+      } else {
+        starshipMap.set(starship.url, existingStarship.id);
+      }
     }
 
     for (const film of films) {
-      const created = await prisma.film.create({
-        data: {
-          url: film.url,
-          title: film.title,
-          episode_id: film.episode_id,
-          opening_crawl: film.opening_crawl,
-          director: film.director,
-          producer: film.producer,
-          release_date: film.release_date,
-        },
+      const existingFilm = await prisma.film.findUnique({
+        where: { url: film.url },
       });
-      filmMap.set(film.url, created.id);
+
+      if (!existingFilm) {
+        const created = await prisma.film.create({
+          data: {
+            url: film.url,
+            title: film.title,
+            episode_id: film.episode_id,
+            opening_crawl: film.opening_crawl,
+            director: film.director,
+            producer: film.producer,
+            release_date: film.release_date,
+          },
+        });
+        filmMap.set(film.url, created.id);
+      } else {
+        filmMap.set(film.url, existingFilm.id);
+      }
     }
 
     for (const film of films) {

@@ -33,13 +33,13 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
-// sync()
-//   .then(async () => {
-//     await prisma.$disconnect();
-//   })
-//   .catch(async (error) => {
-//     console.error(error);
-//     await prisma.$disconnect();
-//   });
+sync()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (error) => {
+    console.error(error);
+    await prisma.$disconnect();
+  });
 
 export default app;
