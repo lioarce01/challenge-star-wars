@@ -33,6 +33,6 @@ Se busca un codigo con determinados lineamientos tecnicos.
 Descripcion:
 X No se admite commitear el .env
 X No se admite importar directamente los schemas de mongo dentro del controlador.
-No se admite anys dentro del codigo.
+X No se admite anys dentro del codigo.
 
 SWAPI swapi.dev The Star Wars API, or "swapi" (Swah-pee) is the world's first quantified and programmatically-accessible data source for all the data from the Star Wars canon universe! We've taken all the rich contextual stuff from the universe and formatted into...
