@@ -4,9 +4,7 @@ import { useParams } from 'next/navigation';
 import { useGetPeopleByIdQuery } from '../../../redux/api/people';
 import Link from 'next/link';
 import { ArrowLeft, User } from 'lucide-react';
-import { Film } from '@/types/film';
-import { Starship } from '@/types/starship';
-import { FilmReference, People, StarshipReference } from '@/types/people';
+import { FilmReference, StarshipReference } from '@/types/people';
 
 const CharacterDetails = () => {
   const { id } = useParams();

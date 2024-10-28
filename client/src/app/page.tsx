@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 
-export default function LandingPage() {
+const LandingPage = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
@@ -35,4 +35,6 @@ export default function LandingPage() {
       </main>
     </div>
   );
-}
+};
+
+export default LandingPage;

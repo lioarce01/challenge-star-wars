@@ -17,7 +17,7 @@ import StarshipList from './StarshipList';
 import FilterForm from './FilterForm';
 import { Starship } from '@/types/starship';
 
-export default function StarshipPage() {
+const StarshipPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { starships, totalCount, currentPage, itemsPerPage } = useSelector(
     (state: RootState) => state.starshipState
@@ -61,7 +61,7 @@ export default function StarshipPage() {
             {/* Filters */}
             <FilterForm filterValues={filterValues} />
 
-            {/* Char Card */}
+            {/* Starship Card */}
             <StarshipList
               starships={filteredStarship}
               isLoading={isLoading}
@@ -82,4 +82,6 @@ export default function StarshipPage() {
       </div>
     </div>
   );
-}
+};
+
+export default StarshipPage;

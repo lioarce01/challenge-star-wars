@@ -17,7 +17,7 @@ import Pagination from '../../components/Pagination';
 import CharacterList from './CharacterList';
 import FilterForm from './FilterForm';
 
-export default function CharactersPage() {
+const CharactersPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { people, totalCount, currentPage, itemsPerPage } = useSelector(
     (state: RootState) => state.peopleState
@@ -82,4 +82,6 @@ export default function CharactersPage() {
       </div>
     </div>
   );
-}
+};
+
+export default CharactersPage;

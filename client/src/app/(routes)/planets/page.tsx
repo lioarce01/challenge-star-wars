@@ -17,7 +17,7 @@ import FilterForm from './FilterForm';
 import { Planet } from '@/types/planet';
 import { setPlanet } from '@/app/redux/slices/planetSlice';
 
-export default function PlanetPage() {
+const PlanetPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { planets, totalCount, currentPage, itemsPerPage } = useSelector(
     (state: RootState) => state.planetState
@@ -61,7 +61,7 @@ export default function PlanetPage() {
             {/* Filters */}
             <FilterForm filterValues={filterValues} />
 
-            {/* Char Card */}
+            {/* Planet Card */}
             <PlanetList
               planets={filteredPlanet}
               isLoading={isLoading}
@@ -82,4 +82,6 @@ export default function PlanetPage() {
       </div>
     </div>
   );
-}
+};
+
+export default PlanetPage;

@@ -17,7 +17,7 @@ import {
 } from '@/app/redux/api/film';
 import FilmList from './FilmList';
 
-export default function FilmsPage() {
+const FilmsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { films, totalCount, currentPage, itemsPerPage } = useSelector(
     (state: RootState) => state.filmState
@@ -61,7 +61,7 @@ export default function FilmsPage() {
             {/* Filters */}
             <FilterForm filterValues={filterValues} />
 
-            {/* Char Card */}
+            {/* Film Card */}
             <FilmList
               film={filteredFilm}
               isLoading={isLoading}
@@ -82,4 +82,6 @@ export default function FilmsPage() {
       </div>
     </div>
   );
-}
+};
+
+export default FilmsPage;
