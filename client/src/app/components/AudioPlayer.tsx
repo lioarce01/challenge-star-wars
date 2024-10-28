@@ -43,6 +43,7 @@ const AudioPlayer = () => {
         <button
           className="bg-gray-700 text-white px-3 py-2 rounded-full transition-all duration-300 hover:bg-yellow-400"
           onClick={handlePlay}
+          aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
         >
           {isPlaying ? 'Pause' : 'Play'}
         </button>
@@ -54,6 +55,7 @@ const AudioPlayer = () => {
           value={volume}
           onChange={handleVolumeChange}
           className="w-40"
+          aria-label="Volume control"
         />
       </div>
     </div>
