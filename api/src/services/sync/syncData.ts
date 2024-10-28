@@ -1,11 +1,12 @@
-import { PrismaClient } from '@prisma/client';
+import { Film, People, Planet, PrismaClient, Starship } from '@prisma/client';
 import axios from 'axios';
+import { ApiFilm, ApiPeople, ApiStarship } from '../../types/ApiTypes';
 
 const prisma = new PrismaClient();
 const API_URL = process.env.API_URL || 'https://swapi.dev/api';
 
-async function fetchAllPages(endpoint: string) {
-  let results: any[] = [];
+async function fetchAllPages<T>(endpoint: string): Promise<T[]> {
+  let results: T[] = [];
   let nextUrl = `${API_URL}/${endpoint}`;
 
   while (nextUrl) {
@@ -19,10 +20,10 @@ async function fetchAllPages(endpoint: string) {
 const importData = async () => {
   try {
     const [people, planets, films, starships] = await Promise.all([
-      fetchAllPages('people'),
-      fetchAllPages('planets'),
-      fetchAllPages('films'),
-      fetchAllPages('starships'),
+      fetchAllPages<ApiPeople>('people'),
+      fetchAllPages<Planet>('planets'),
+      fetchAllPages<ApiFilm>('films'),
+      fetchAllPages<ApiStarship>('starships'),
     ]);
 
     const planetMap = new Map();
@@ -143,36 +144,54 @@ const importData = async () => {
       for (const characterUrl of film.characters) {
         const personId = peopleMap.get(characterUrl);
         if (personId) {
-          await prisma.filmOnCharacter.create({
-            data: {
-              filmId,
-              personId,
-            },
+          const existingRelation = await prisma.filmOnCharacter.findFirst({
+            where: { filmId, personId },
           });
+
+          if (!existingRelation) {
+            await prisma.filmOnCharacter.create({
+              data: {
+                filmId,
+                personId,
+              },
+            });
+          }
         }
       }
 
       for (const planetUrl of film.planets) {
         const planetId = planetMap.get(planetUrl);
         if (planetId) {
-          await prisma.filmOnPlanet.create({
-            data: {
-              filmId,
-              planetId,
-            },
+          const existingRelation = await prisma.filmOnPlanet.findFirst({
+            where: { filmId, planetId },
           });
+
+          if (!existingRelation) {
+            await prisma.filmOnPlanet.create({
+              data: {
+                filmId,
+                planetId,
+              },
+            });
+          }
         }
       }
 
       for (const starshipUrl of film.starships) {
         const starshipId = starshipMap.get(starshipUrl);
         if (starshipId) {
-          await prisma.filmOnStarship.create({
-            data: {
-              filmId,
-              starshipId,
-            },
+          const existingRelation = await prisma.filmOnStarship.findFirst({
+            where: { filmId, starshipId },
           });
+
+          if (!existingRelation) {
+            await prisma.filmOnStarship.create({
+              data: {
+                filmId,
+                starshipId,
+              },
+            });
+          }
         }
       }
     }
@@ -183,12 +202,18 @@ const importData = async () => {
       for (const pilotUrl of starship.pilots) {
         const pilotId = peopleMap.get(pilotUrl);
         if (pilotId) {
-          await prisma.starshipOnPilot.create({
-            data: {
-              starshipId,
-              pilotId,
-            },
+          const existingRelation = await prisma.starshipOnPilot.findFirst({
+            where: { starshipId, pilotId },
           });
+
+          if (!existingRelation) {
+            await prisma.starshipOnPilot.create({
+              data: {
+                starshipId,
+                pilotId,
+              },
+            });
+          }
         }
       }
     }

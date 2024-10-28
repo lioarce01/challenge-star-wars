@@ -22,8 +22,6 @@ model People {
   homeworldId String?     @db.ObjectId
   starships   StarshipOnPilot[]
   films       FilmOnCharacter[]
-  created     DateTime   @default(now())
-  edited      DateTime   @updatedAt
 }
 
 model Planet {
@@ -40,8 +38,6 @@ model Planet {
   population       String?
   residents        People[]    @relation("PlanetResidents")
   films            FilmOnPlanet[]
-  created          DateTime    @default(now())
-  edited           DateTime    @updatedAt
 }
 
 model Film {
@@ -56,8 +52,6 @@ model Film {
   characters    FilmOnCharacter[]
   planets       FilmOnPlanet[]
   starships     FilmOnStarship[]
-  created       DateTime    @default(now())
-  edited        DateTime    @updatedAt
 }
 
 model Starship {
@@ -78,8 +72,6 @@ model Starship {
   starship_class        String
   pilots                StarshipOnPilot[]
   films                 FilmOnStarship[]
-  created               DateTime    @default(now())
-  edited                DateTime    @updatedAt
 }
 
 model FilmOnCharacter {

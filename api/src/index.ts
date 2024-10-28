@@ -20,7 +20,7 @@ app.use(cors(corsOptions));
 const PORT = process.env.PORT || 4000;
 
 if (process.env.NODE_ENV !== 'test') {
-  cron.schedule('0 0 * * *', () => {
+  cron.schedule('*/5 * * * *', () => {
     sync();
   });
 }
@@ -33,13 +33,14 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
-sync()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (error) => {
-    console.error(error);
-    await prisma.$disconnect();
-  });
+//PARA PRUEBAS LOCALES
+// sync()
+//   .then(async () => {
+//     await prisma.$disconnect();
+//   })
+//   .catch(async (error) => {
+//     console.error(error);
+//     await prisma.$disconnect();
+//   });
 
 export default app;
