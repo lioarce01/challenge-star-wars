@@ -20,7 +20,7 @@ app.use(cors(corsOptions));
 const PORT = process.env.PORT || 4000;
 
 if (process.env.NODE_ENV !== 'test') {
-  cron.schedule('*/5 * * * *', () => {
+  cron.schedule('0 0 * * *', () => {
     sync();
   });
 }
