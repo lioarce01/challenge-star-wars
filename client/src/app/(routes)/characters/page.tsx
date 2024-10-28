@@ -16,6 +16,7 @@ import { People } from '@/types/people';
 import Pagination from '../../components/Pagination';
 import CharacterList from './CharacterList';
 import FilterForm from './FilterForm';
+import { FilterValues } from '@/types/filter';
 
 const CharactersPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -59,7 +60,7 @@ const CharactersPage = () => {
         <div>
           <div className="text-white px-8 bg-opacity-10">
             {/* Filters */}
-            <FilterForm filterValues={filterValues} />
+            <FilterForm filterValues={filterValues as FilterValues} />
 
             {/* Char Card */}
             <CharacterList

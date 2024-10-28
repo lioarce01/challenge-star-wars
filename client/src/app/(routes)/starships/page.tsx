@@ -16,6 +16,7 @@ import Pagination from '../../components/Pagination';
 import StarshipList from './StarshipList';
 import FilterForm from './FilterForm';
 import { Starship } from '@/types/starship';
+import { FilterValues } from '@/types/filter';
 
 const StarshipPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -59,7 +60,7 @@ const StarshipPage = () => {
         <div>
           <div className="text-white px-8 bg-opacity-10">
             {/* Filters */}
-            <FilterForm filterValues={filterValues} />
+            <FilterForm filterValues={filterValues as FilterValues} />
 
             {/* Starship Card */}
             <StarshipList

@@ -16,6 +16,7 @@ import {
   useGetFilterValuesQuery,
 } from '@/app/redux/api/film';
 import FilmList from './FilmList';
+import { FilterValues } from '@/types/filter';
 
 const FilmsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -59,7 +60,7 @@ const FilmsPage = () => {
         <div>
           <div className="text-white px-8 bg-opacity-10">
             {/* Filters */}
-            <FilterForm filterValues={filterValues} />
+            <FilterForm filterValues={filterValues as FilterValues} />
 
             {/* Film Card */}
             <FilmList

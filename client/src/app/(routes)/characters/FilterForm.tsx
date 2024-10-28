@@ -9,9 +9,10 @@ import {
 } from '../../redux/slices/filterSlice';
 import { RootState } from '../../redux/store/store';
 import { Search } from 'lucide-react';
+import { FilterValues } from '@/types/filter';
 
 type FilterFormProps = {
-  filterValues: any;
+  filterValues: FilterValues;
 };
 
 const FilterForm: React.FC<FilterFormProps> = ({ filterValues }) => {

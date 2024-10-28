@@ -16,6 +16,7 @@ import PlanetList from './PlanetList';
 import FilterForm from './FilterForm';
 import { Planet } from '@/types/planet';
 import { setPlanet } from '@/app/redux/slices/planetSlice';
+import { FilterValues } from '@/types/filter';
 
 const PlanetPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -59,7 +60,7 @@ const PlanetPage = () => {
         <div>
           <div className="text-white px-8 bg-opacity-10">
             {/* Filters */}
-            <FilterForm filterValues={filterValues} />
+            <FilterForm filterValues={filterValues as FilterValues} />
 
             {/* Planet Card */}
             <PlanetList
