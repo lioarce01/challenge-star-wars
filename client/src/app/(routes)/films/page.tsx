@@ -17,7 +17,7 @@ import {
 } from '@/app/redux/api/film';
 import FilmList from './FilmList';
 
-export default function CharactersPage() {
+export default function FilmsPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { films, totalCount, currentPage, itemsPerPage } = useSelector(
     (state: RootState) => state.filmState
@@ -37,7 +37,7 @@ export default function CharactersPage() {
       dispatch(setFilm(data.results));
       dispatch({ type: 'film/setTotalCount', payload: data.count });
     }
-  }, [data, dispatch]);
+  }, [data, dispatch, currentPage]);
 
   const filteredFilm = films?.filter((film: Film) =>
     film.title.toLowerCase().includes(filters.searchTerm.toLowerCase())

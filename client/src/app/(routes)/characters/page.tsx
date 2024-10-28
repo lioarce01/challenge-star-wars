@@ -37,7 +37,7 @@ export default function CharactersPage() {
       dispatch(setPeople(data.results));
       dispatch({ type: 'people/setTotalCount', payload: data.count });
     }
-  }, [data, dispatch]);
+  }, [data, dispatch, currentPage]);
 
   const filteredPeople = people?.filter((character: People) =>
     character.name.toLowerCase().includes(filters.searchTerm.toLowerCase())
@@ -47,7 +47,7 @@ export default function CharactersPage() {
     dispatch(setCurrentPage(newPage));
   };
   return (
-    <div className="min-h-screen text-white pt-20 bg-gradient-to-b from-gray-900 to-black">
+    <div className="min-h-screen text-white pt-20 bg-gradient-to-b from-gray-900 to-black pb-6">
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div>
           <div className="text-white px-8 bg-opacity-10">

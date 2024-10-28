@@ -13,7 +13,7 @@ type FilmListProps = {
   error: any;
 };
 
-const CharacterList: React.FC<FilmListProps> = ({
+const FilmList: React.FC<FilmListProps> = ({
   film,
   isLoading,
   isFetching,
@@ -65,4 +65,4 @@ const CharacterList: React.FC<FilmListProps> = ({
   </div>
 );
 
-export default CharacterList;
+export default FilmList;

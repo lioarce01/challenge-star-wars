@@ -17,7 +17,7 @@ import StarshipList from './StarshipList';
 import FilterForm from './FilterForm';
 import { Starship } from '@/types/starship';
 
-export default function CharactersPage() {
+export default function StarshipPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { starships, totalCount, currentPage, itemsPerPage } = useSelector(
     (state: RootState) => state.starshipState
@@ -37,7 +37,7 @@ export default function CharactersPage() {
       dispatch(setStarship(data.results));
       dispatch({ type: 'starship/setTotalCount', payload: data.count });
     }
-  }, [data, dispatch]);
+  }, [data, dispatch, currentPage]);
 
   const filteredStarship = starships?.filter((starship: Starship) =>
     starship.name.toLowerCase().includes(filters.searchTerm.toLowerCase())

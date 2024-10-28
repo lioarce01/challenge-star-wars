@@ -13,7 +13,7 @@ type PlanetListProps = {
   error: any;
 };
 
-const CharacterList: React.FC<PlanetListProps> = ({
+const PlanetList: React.FC<PlanetListProps> = ({
   planets,
   isLoading,
   isFetching,
@@ -26,7 +26,7 @@ const CharacterList: React.FC<PlanetListProps> = ({
       <p className="col-span-full text-center text-red-500 text-xl">
         Error loading planets.
       </p>
-    ) : planets.length === 0 ? (
+    ) : !planets || planets.length === 0 ? (
       <p className="col-span-full text-center text-xl">No planets found.</p>
     ) : (
       planets.map((planet: Planet) => (
@@ -65,4 +65,4 @@ const CharacterList: React.FC<PlanetListProps> = ({
   </div>
 );
 
-export default CharacterList;
+export default PlanetList;

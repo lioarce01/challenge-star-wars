@@ -37,7 +37,7 @@ export default function PlanetPage() {
       dispatch(setPlanet(data.results));
       dispatch({ type: 'planet/setTotalCount', payload: data.count });
     }
-  }, [data, dispatch]);
+  }, [data, dispatch, currentPage]);
 
   const filteredPlanet = planets?.filter((planet: Planet) =>
     planet.name.toLowerCase().includes(filters.searchTerm.toLowerCase())

@@ -13,7 +13,7 @@ type StarshipListProps = {
   error: any;
 };
 
-const CharacterList: React.FC<StarshipListProps> = ({
+const StarshipList: React.FC<StarshipListProps> = ({
   starships,
   isLoading,
   isFetching,
@@ -26,7 +26,7 @@ const CharacterList: React.FC<StarshipListProps> = ({
       <p className="col-span-full text-center text-red-500 text-xl">
         Error loading starships.
       </p>
-    ) : starships.length === 0 ? (
+    ) : !starships || starships.length === 0 ? (
       <p className="col-span-full text-center text-xl">No starships found.</p>
     ) : (
       starships?.map((starship: Starship) => (
@@ -65,4 +65,4 @@ const CharacterList: React.FC<StarshipListProps> = ({
   </div>
 );
 
-export default CharacterList;
+export default StarshipList;
