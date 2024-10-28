@@ -31,7 +31,7 @@ const PlanetList: React.FC<PlanetListProps> = ({
     ) : (
       planets.map((planet: Planet) => (
         <Link href={`/planets/${planet.id}`} key={planet.id}>
-          <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-yellow-500/20 transition-all duration-300 transform hover:scale-105">
+          <div className="bg-gray-800 bg-opacity-90 rounded-lg overflow-hidden shadow-lg hover:shadow-black-500/20 transition-all duration-300 transform hover:scale-105">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-yellow-400">

@@ -47,7 +47,14 @@ export default function FilmsPage() {
     dispatch(setCurrentPage(newPage));
   };
   return (
-    <div className="min-h-screen text-white pt-20 bg-gradient-to-b from-gray-900 to-black">
+    <div className="relative min-h-screen text-white pt-16">
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-50"
+        src="/film.mp4"
+        autoPlay
+        loop
+        muted
+      ></video>
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div>
           <div className="text-white px-8 bg-opacity-10">

@@ -30,7 +30,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ filterValues }) => {
   };
 
   return (
-    <form className="mb-8 bg-gray-800 p-6 rounded-lg shadow-lg">
+    <form className="mb-8 bg-gray-800 bg-opacity-90 p-6 rounded-lg shadow-lg">
       <div className="mb-6 relative flex w-auto justify-center">
         <input
           type="text"

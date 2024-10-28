@@ -41,7 +41,7 @@ const AudioPlayer = () => {
     <div className="fixed bottom-0 left-0 w-auto bg-transparent p-4 z-20">
       <div className="flex items-center space-x-4">
         <button
-          className="bg-gray-700 text-white px-3 py-2 rounded-full transition-all duration-300 hover:bg-yellow-400"
+          className="bg-gray-700 text-white px-2 py-1 rounded-lg transition-all duration-300 hover:bg-yellow-600"
           onClick={handlePlay}
           aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
         >
