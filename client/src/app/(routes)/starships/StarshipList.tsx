@@ -10,7 +10,7 @@ type StarshipListProps = {
   starships: Starship[];
   isLoading: boolean;
   isFetching: boolean;
-  error: any;
+  error: Error;
 };
 
 const StarshipList: React.FC<StarshipListProps> = ({

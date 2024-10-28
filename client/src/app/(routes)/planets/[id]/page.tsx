@@ -4,6 +4,8 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Earth } from 'lucide-react';
 import { useGetPlanetByIdQuery } from '@/app/redux/api/planet';
+import { People } from '@/types/people';
+import { FilmReference } from '@/types/planet';
 
 const PlanetDetails = () => {
   const { id } = useParams();
@@ -102,9 +104,9 @@ const PlanetDetails = () => {
                       {planet?.residents.length === 0
                         ? 'No residents'
                         : planet?.residents?.map(
-                            (resident: any, index: number) => (
+                            (residentObj: People, index: number) => (
                               <li key={index} className="text-xs sm:text-sm">
-                                {resident.name}
+                                {residentObj.name || 'No residents'}
                               </li>
                             )
                           )}
@@ -115,11 +117,13 @@ const PlanetDetails = () => {
                     <ul className="list-disc list-inside pl-2 sm:pl-4">
                       {planet?.films.length === 0
                         ? 'No films'
-                        : planet?.films?.map((film: any, index: number) => (
-                            <li key={index} className="text-xs sm:text-sm">
-                              {film.film.title}
-                            </li>
-                          ))}
+                        : planet?.films?.map(
+                            (filmObj: FilmReference, index: number) => (
+                              <li key={index} className="text-xs sm:text-sm">
+                                {filmObj.film.title || 'No Films'}
+                              </li>
+                            )
+                          )}
                     </ul>
                   </li>
                 </div>

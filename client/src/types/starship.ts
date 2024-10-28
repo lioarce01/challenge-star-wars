@@ -1,5 +1,12 @@
-import { Film } from './film';
 import { People } from './people';
+
+export interface FilmReference {
+  film: { title: string };
+}
+
+export interface PilotReference {
+  pilot: { name: string };
+}
 
 export interface Starship {
   id: string;
@@ -18,5 +25,16 @@ export interface Starship {
   MGLT?: string;
   starship_class: string;
   pilots: People[];
-  films: Film[];
+  films: FilmReference[];
+}
+export interface GetStarshipsArgs {
+  offset: number;
+  limit: number;
+  starship_class?: string;
+  manufacturer?: string;
+}
+
+export interface GetStarshipsResponse {
+  results: Starship[];
+  count: number;
 }

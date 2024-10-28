@@ -66,7 +66,7 @@ export default function FilmsPage() {
               film={filteredFilm}
               isLoading={isLoading}
               isFetching={isFetching}
-              error={error}
+              error={error as Error}
             />
 
             {/* Pagination */}

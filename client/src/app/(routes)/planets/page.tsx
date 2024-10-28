@@ -66,7 +66,7 @@ export default function PlanetPage() {
               planets={filteredPlanet}
               isLoading={isLoading}
               isFetching={isFetching}
-              error={error}
+              error={error as Error}
             />
 
             {/* Pagination */}

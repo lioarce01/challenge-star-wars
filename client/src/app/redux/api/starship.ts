@@ -1,17 +1,9 @@
-import { Starship } from '@/types/starship';
+import {
+  GetStarshipsArgs,
+  GetStarshipsResponse,
+  Starship,
+} from '@/types/starship';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-interface GetStarshipsArgs {
-  offset: number;
-  limit: number;
-  starship_class?: string;
-  manufacturer?: string;
-}
-
-interface GetStarshipsResponse {
-  results: Starship[];
-  count: number;
-}
 
 interface FilterValues {
   climate: string[];

@@ -1,6 +1,14 @@
-import { People } from './people';
-import { Planet } from './planet';
-import { Starship } from './starship';
+export interface CharacterReference {
+  person: { name: string };
+}
+
+export interface PlanetReference {
+  planet: { name: string };
+}
+
+export interface StarshipReference {
+  starship: { name: string };
+}
 
 export interface Film {
   id: string;
@@ -11,7 +19,19 @@ export interface Film {
   director: string;
   producer: string;
   release_date: string;
-  characters: People[];
-  planets: Planet[];
-  starships: Starship[];
+  characters: CharacterReference[];
+  planets: PlanetReference[];
+  starships: StarshipReference[];
+}
+
+export interface GetFilmsArgs {
+  offset: number;
+  limit: number;
+  producer?: string;
+  director?: string;
+}
+
+export interface GetFilmsResponse {
+  results: Film[];
+  count: number;
 }

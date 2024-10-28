@@ -4,6 +4,9 @@ import { useParams } from 'next/navigation';
 import { useGetPeopleByIdQuery } from '../../../redux/api/people';
 import Link from 'next/link';
 import { ArrowLeft, User } from 'lucide-react';
+import { Film } from '@/types/film';
+import { Starship } from '@/types/starship';
+import { FilmReference, People, StarshipReference } from '@/types/people';
 
 const CharacterDetails = () => {
   const { id } = useParams();
@@ -105,11 +108,13 @@ const CharacterDetails = () => {
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
                     {character?.films.length === 0
                       ? 'No films'
-                      : character?.films?.map((film: any, index: number) => (
-                          <li key={index} className="text-xs sm:text-sm">
-                            {film.film.title ? film.film.title : 'No Films'}
-                          </li>
-                        ))}
+                      : character?.films?.map(
+                          (filmObj: FilmReference, index: number) => (
+                            <li key={index} className="text-xs sm:text-sm">
+                              {filmObj.film.title || 'No Films'}
+                            </li>
+                          )
+                        )}
                   </ul>
                 </li>
                 <li className="flex flex-col">
@@ -118,9 +123,9 @@ const CharacterDetails = () => {
                     {character?.starships.length === 0
                       ? 'No starships'
                       : character?.starships?.map(
-                          (starship: any, index: number) => (
+                          (starshipObj: StarshipReference, index: number) => (
                             <li key={index} className="text-xs sm:text-sm">
-                              {starship.starship.name}
+                              {starshipObj.starship.name}
                             </li>
                           )
                         )}

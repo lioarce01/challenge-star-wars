@@ -1,18 +1,5 @@
-import { People } from '@/types/people';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-interface GetPeoplesArgs {
-  offset: number;
-  limit: number;
-  gender?: string;
-  hair_color?: string;
-  skin_color?: string;
-}
-
-interface GetPeoplesResponse {
-  results: People[];
-  count: number;
-}
+import { GetPeoplesResponse, GetPeoplesArgs } from '@/types/people';
 
 interface FilterValues {
   genders: string[];

@@ -10,7 +10,7 @@ type FilmListProps = {
   film: Film[];
   isLoading: boolean;
   isFetching: boolean;
-  error: any;
+  error: Error;
 };
 
 const FilmList: React.FC<FilmListProps> = ({

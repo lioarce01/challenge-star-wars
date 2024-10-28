@@ -4,6 +4,11 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Clapperboard } from 'lucide-react';
 import { useGetFilmByIdQuery } from '@/app/redux/api/film';
+import {
+  CharacterReference,
+  PlanetReference,
+  StarshipReference,
+} from '@/types/film';
 
 const FilmDetail = () => {
   const { id } = useParams();
@@ -90,11 +95,13 @@ const FilmDetail = () => {
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
                     {film?.characters.length === 0
                       ? 'No characters'
-                      : film?.characters?.map((char: any, index: number) => (
-                          <li key={index} className="text-xs sm:text-sm">
-                            {char.person.name}
-                          </li>
-                        ))}
+                      : film?.characters?.map(
+                          (charObj: CharacterReference, index: number) => (
+                            <li key={index} className="text-xs sm:text-sm">
+                              {charObj.person.name || 'No characters'}
+                            </li>
+                          )
+                        )}
                   </ul>
                 </li>
                 <li className="flex flex-col mb-2 sm:mb-0">
@@ -102,13 +109,13 @@ const FilmDetail = () => {
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
                     {film?.planets.length === 0
                       ? 'No planets'
-                      : film?.planets?.map((planet: any, index: number) => (
-                          <li key={index} className="text-xs sm:text-sm">
-                            {planet.planet.name
-                              ? planet.planet.name
-                              : 'No Planets'}
-                          </li>
-                        ))}
+                      : film?.planets?.map(
+                          (planetObj: PlanetReference, index: number) => (
+                            <li key={index} className="text-xs sm:text-sm">
+                              {planetObj.planet.name || 'No Planets'}
+                            </li>
+                          )
+                        )}
                   </ul>
                 </li>
                 <li className="flex flex-col">
@@ -116,13 +123,13 @@ const FilmDetail = () => {
                   <ul className="list-disc list-inside pl-2 sm:pl-4">
                     {film?.starships.length === 0
                       ? 'No starships'
-                      : film?.starships?.map((starship: any, index: number) => (
-                          <li key={index} className="text-xs sm:text-sm">
-                            {starship.starship
-                              ? starship.starship.name
-                              : 'No Starships'}
-                          </li>
-                        ))}
+                      : film?.starships?.map(
+                          (starshipObj: StarshipReference, index: number) => (
+                            <li key={index} className="text-xs sm:text-sm">
+                              {starshipObj.starship.name || 'No Starships'}
+                            </li>
+                          )
+                        )}
                   </ul>
                 </li>
               </div>

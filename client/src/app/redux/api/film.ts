@@ -1,17 +1,5 @@
-import { Film } from '@/types/film';
+import { GetFilmsArgs, GetFilmsResponse } from '@/types/film';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-interface GetFilmsArgs {
-  offset: number;
-  limit: number;
-  producer?: string;
-  director?: string;
-}
-
-interface GetFilmsResponse {
-  results: Film[];
-  count: number;
-}
 
 interface FilterValues {
   producer: string[];

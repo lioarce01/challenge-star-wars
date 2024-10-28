@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Rocket, User } from 'lucide-react';
 import { useGetStarshipByIdQuery } from '@/app/redux/api/starship';
+import { FilmReference, PilotReference } from '@/types/starship';
 
 const CharacterDetails = () => {
   const { id } = useParams();
@@ -111,11 +112,13 @@ const CharacterDetails = () => {
                     <ul className="list-disc list-inside pl-2 sm:pl-4">
                       {starship?.pilots.length === 0
                         ? 'No pilots'
-                        : starship?.pilots?.map((pilot: any, index: number) => (
-                            <li key={index} className="text-xs sm:text-sm">
-                              {pilot.pilot.name}
-                            </li>
-                          ))}
+                        : starship?.pilots?.map(
+                            (pilotObj: PilotReference, index: number) => (
+                              <li key={index} className="text-xs sm:text-sm">
+                                {pilotObj.pilot.name}
+                              </li>
+                            )
+                          )}
                     </ul>
                   </li>
                   <li className="flex flex-col mb-2 sm:mb-0">
@@ -123,11 +126,13 @@ const CharacterDetails = () => {
                     <ul className="list-disc list-inside pl-2 sm:pl-4">
                       {starship.films.length === 0
                         ? 'No films'
-                        : starship?.films?.map((film: any, index: number) => (
-                            <li key={index} className="text-xs sm:text-sm">
-                              {film.film.title ? film.film.title : 'No Films'}
-                            </li>
-                          ))}
+                        : starship?.films?.map(
+                            (filmObj: FilmReference, index: number) => (
+                              <li key={index} className="text-xs sm:text-sm">
+                                {filmObj.film.title || 'No Films'}
+                              </li>
+                            )
+                          )}
                     </ul>
                   </li>
                 </div>

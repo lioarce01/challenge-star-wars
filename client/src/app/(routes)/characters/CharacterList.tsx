@@ -10,7 +10,7 @@ type CharacterListProps = {
   characters: People[];
   isLoading: boolean;
   isFetching: boolean;
-  error: any;
+  error: Error;
 };
 
 const CharacterList: React.FC<CharacterListProps> = ({

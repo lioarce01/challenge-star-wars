@@ -1,17 +1,5 @@
-import { Planet } from '@/types/planet';
+import { GetPlanetsArgs, getPlanetsResponse, Planet } from '@/types/planet';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-interface GetPlanetsArgs {
-  offset: number;
-  limit: number;
-  climate?: string;
-  terrain?: string;
-}
-
-interface getPlanetsResponse {
-  results: Planet[];
-  count: number;
-}
 
 interface FilterValues {
   climate: string[];

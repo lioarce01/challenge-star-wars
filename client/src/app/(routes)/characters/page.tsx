@@ -66,7 +66,7 @@ export default function CharactersPage() {
               characters={filteredPeople}
               isLoading={isLoading}
               isFetching={isFetching}
-              error={error}
+              error={error as Error}
             />
 
             {/* Pagination */}

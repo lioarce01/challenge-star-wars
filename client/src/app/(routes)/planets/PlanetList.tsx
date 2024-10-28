@@ -10,7 +10,7 @@ type PlanetListProps = {
   planets: Planet[];
   isLoading: boolean;
   isFetching: boolean;
-  error: any;
+  error: Error;
 };
 
 const PlanetList: React.FC<PlanetListProps> = ({

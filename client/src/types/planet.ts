@@ -1,6 +1,10 @@
 import { Film } from './film';
 import { People } from './people';
 
+export interface FilmReference {
+  film: { title: string };
+}
+
 export interface Planet {
   id: string;
   url: string;
@@ -14,5 +18,17 @@ export interface Planet {
   surface_water?: string;
   population?: string;
   residents: People[];
-  films: Film[];
+  films: FilmReference[];
+}
+
+export interface GetPlanetsArgs {
+  offset: number;
+  limit: number;
+  climate?: string;
+  terrain?: string;
+}
+
+export interface getPlanetsResponse {
+  results: Planet[];
+  count: number;
 }
