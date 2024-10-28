@@ -14,13 +14,13 @@ X Las vistas serian: Listado de cada entidad
 X Poder ver un elemento de un listado con toda su información.
 X En el listado debería poder paginar la información y tener una búsqueda local.
 
-X Se espera que el API se encuentre desplegado en algun servicio en la nube y el X frontend se encuentre en vercel para poder hacer las pruebas correspondientes.
+X Se espera que el API se encuentre desplegado en algun servicio en la nube y el frontend se encuentre en vercel para poder hacer las pruebas correspondientes.
 
 Criterio de Evaluación Este test va a estar evaluado de la siguiente manera:
 
 X Funcional: ¿La aplicación cumple con todos los puntos?
 
-Code Quality: ¿El código se encuentra bien estructurado, limpio y es escalable?
+X Code Quality: ¿El código se encuentra bien estructurado, limpio y es escalable?
 
 X UI/UX: ¿El frontend es intuitivo y visualmente posee una buena UX?
 
