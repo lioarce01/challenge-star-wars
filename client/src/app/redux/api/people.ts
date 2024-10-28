@@ -21,24 +21,26 @@ interface FilterValues {
   homeworlds: string[];
 }
 
+const URL = process.env.NEXT_PUBLIC_API_URL;
+
 export const peopleApi = createApi({
   reducerPath: 'people',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: URL }),
 
   endpoints: (builder) => ({
     getPeoples: builder.query<GetPeoplesResponse, GetPeoplesArgs>({
       query: ({ offset, limit, ...params }) => ({
-        url: 'people',
+        url: '/people',
         params: { offset, limit, ...params },
       }),
     }),
 
     getPeopleById: builder.query({
-      query: (id) => `people/${id}`,
+      query: (id) => `/people/${id}`,
     }),
 
     getFilterValues: builder.query<FilterValues, void>({
-      query: () => 'people/filter-values',
+      query: () => '/people/filter-values',
     }),
   }),
 });

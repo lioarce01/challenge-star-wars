@@ -18,14 +18,16 @@ interface FilterValues {
   director: string[];
 }
 
+const URL = process.env.NEXT_PUBLIC_API_URL;
+
 export const filmApi = createApi({
   reducerPath: 'film',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: URL }),
 
   endpoints: (builder) => ({
     getFilms: builder.query<GetFilmsResponse, GetFilmsArgs>({
       query: ({ offset, limit, ...params }) => ({
-        url: 'films',
+        url: '/films',
         params: { offset, limit, ...params },
       }),
     }),
@@ -35,7 +37,7 @@ export const filmApi = createApi({
     }),
 
     getFilterValues: builder.query<FilterValues, void>({
-      query: () => 'films/filter-values',
+      query: () => '/films/filter-values',
     }),
   }),
 });

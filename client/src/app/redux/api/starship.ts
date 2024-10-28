@@ -18,14 +18,16 @@ interface FilterValues {
   terrain: string[];
 }
 
+const URL = process.env.NEXT_PUBLIC_API_URL;
+
 export const starshipApi = createApi({
   reducerPath: 'starship',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: URL }),
 
   endpoints: (builder) => ({
     getStarships: builder.query<GetStarshipsResponse, GetStarshipsArgs>({
       query: ({ offset, limit, ...params }) => ({
-        url: 'starships',
+        url: '/starships',
         params: { offset, limit, ...params },
       }),
     }),
@@ -35,7 +37,7 @@ export const starshipApi = createApi({
     }),
 
     getFilterValues: builder.query<FilterValues, void>({
-      query: () => 'starships/filter-values',
+      query: () => '/starships/filter-values',
     }),
   }),
 });

@@ -18,14 +18,16 @@ interface FilterValues {
   terrain: string[];
 }
 
+const URL = process.env.NEXT_PUBLIC_API_URL;
+
 export const planetApi = createApi({
   reducerPath: 'planet',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: URL }),
 
   endpoints: (builder) => ({
     getPlanets: builder.query<getPlanetsResponse, GetPlanetsArgs>({
       query: ({ offset, limit, ...params }) => ({
-        url: 'planets',
+        url: '/planets',
         params: { offset, limit, ...params },
       }),
     }),
@@ -35,7 +37,7 @@ export const planetApi = createApi({
     }),
 
     getFilterValues: builder.query<FilterValues, void>({
-      query: () => 'planets/filter-values',
+      query: () => '/planets/filter-values',
     }),
   }),
 });
